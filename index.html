@@ -3,29 +3,41 @@
   <head>
     <title>ideaBox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="normalize.css"> -->
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/clipboards.png">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700">
   </head>
   <body>
-    <section role="main" class="container-box">
-      <article role="form" aria-label="To do list item submission" class="top-box">
-        <form>
-          <h1 class="idea">idea</h1>
-          <h1 class="box">Box</h1>
-          <input aria-label="Input list item title" id="title-input" type="text" placeholder="Title">
-          <br />
-          <input aria-label="Input list item" id="body-input" type="text" placeholder="Body">
-          <br />
+    <main class="container-box">
+      <header role="banner" class="top-box">
+        <h1 class="logo">idea<span>Box</span></h1>
+        <form aria-label="Create a To Do List task">
+          <input
+            aria-label="Create your task title"
+            class="title-input"
+            type="text"
+            placeholder="Title">
+          <input
+            aria-label="Create your task description"
+            class="body-input"
+            type="text"
+            placeholder="Body">
           <button class="save-btn">save</button>
-          <br />
         </form>
-      </article>
-      <input aria-label="Search here" id="search-input" type="text" placeholder="Search">
-      <article role="application" class="bottom-box">
-      </article>
-    </section>
+      </header>
+      <form class="search">
+        <input
+          aria-label="Search here"
+          class="search-input"
+          type="text"
+          placeholder="Search">
+      </form>
+      <section role="application" class="bottom-box">
+      </section>
+    </main>
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
