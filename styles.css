@@ -185,7 +185,8 @@ button {
 }
 
 .delete-button:hover {
-  background-image: url(images/delete-hover.svg); background-size: cover;
+  background-image: url(images/delete-hover.svg);
+  background-size: cover;
 }
 
 @media(max-width: 640px){
