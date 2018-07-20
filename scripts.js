@@ -4,7 +4,7 @@ var numCards = 0;
 var qualityVariable = "swill";
 
 var newCard = function(id , title , body , quality) {
-    return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
+    return '<div aria-label="To do list item" id="' + id + '"class="card-container"><h2 class="title-of-card">'  
             + title +  '</h2>'
             + '<button class="delete-button"></button>'
             +'<p class="body-of-card">'
