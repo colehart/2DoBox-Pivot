@@ -106,14 +106,3 @@ function saveInput(listItem) {
 //         localStorage.removeItem(cardHTMLId);
 //     }
 // });
-      
-
-
-
-
-
-
-
-
-
-
