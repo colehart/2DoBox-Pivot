@@ -1,180 +1,202 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Roboto Slab', serif;
+/* Idiomatic Styling Guide */
+/* element / selector {
+     any child-specific properties:
+        grid-column;
+        grid-row;
+        grid-area;
+     any overriding properties;
+        justify-self;
+        align-self;
+     box-size-properties:
+       height;
+       width;
+       border;
+       margin;
+       padding;
+     position:
+       top,
+       left,
+       bottom,
+       right;
+       position-specific properties;
+     display;
+     relevant-display-properties:;
+       if grid- or flex-container, any parent properties:
+         grid-template-columns;
+         grid-template-rows;
+         grid-gap;
+         grid-areas;
+        or
+         flex-direction;
+         flex-wrap;
+         justify-content / items;
+         align-content / items;
+     box-background-styling (abc order)
+       background color/image;
+       blend modes;
+     text properties (abc order);
+   }*/
+
+body {
+  box-sizing: border-box;
 }
 
 .container-box {
-    margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Slab', serif;
 }
 
-body {
-    box-sizing: border-box;
-    margin: 0;
-}
+/* Styling for header section where user creates task */
 
 .top-box {
-    background-color: #e5f3f2;
-    box-sizing: border-box;
-    height: 300px;
-    margin: 0;
-    text-align: center;
+  height: 300px;
+  margin: 0;
+  background-color: #e5f3f2;
+  text-align: center;
 }
 
-h1{
-    color: #6d6e71;
-    display: inline-block;
-    font-size: 275%;
-    margin-bottom:  30px;
+.logo {
+  display: inline-block;
+  color: #00a79d;
 }
 
-.idea {
-    color: #00a79d;
+span {
+  color: #6d6e71;
 }
 
-#title-input {
-    align-items: center;
-    display: flex;
-    height: 30px;
-    justify-content: space-between;
-    width: 45%;
+.title-input {
+  height: 30px;
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#body-input {
-    align-items: center;
-    display: flex;
-    height: 30px;
-    justify-content: space-between;
-    width: 45%;
-}
-
-#search-input {
-    height: 30px;
-    margin-top: 50px;
-    width: 45%;
-}
-
-.save-btn {
-    background-color: #00a79d;
-    border: none;
-    color: #fff;
-    font-size: 120%;
-    height: 30px;
-    width: 45.5%;
-}
-
-.save-btn:hover {
-    background-color: #045e55;
+.body-input {
+  height: 30px;
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 input {
-    align-items: center;
-    display: flex;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 100%;
-    justify-content: space-between;
-    margin: auto;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+}
+
+.save-btn {
+  height: 30px;
+  width: 45.5%;
+  border: none;
+  background-color: #00a79d;
+  color: #fff;
+  font-size: 120%;
+}
+
+/* Styling for application section where tasks populate */
+
+.search-input {
+  height: 30px;
+  margin-top: 50px;
+  width: 45%;
+}
+
+.save-btn:hover {
+  background-color: #045e55;
 }
 
 .card-container {
-    margin: auto;
-    position: relative;
-    width: 45%;
+  width: 45%;
+  margin: auto;
+  position: relative;
 }
 
-.card {
-    background-color: #ffffff;
-    height: auto;
-    margin: auto;
-    width: 45%;
-}
-
-.title-of-card{
-    color: #6D6E71;
-    display: inline-block;
-    font-family: 'Roboto Slab', serif;
-    font-size: 140%;
+.title-of-card {
+  display: inline-block;
+  color: #6D6E71;
+  font-family: 'Roboto Slab', serif;
+  font-size: 140%;
 }
 
 h2 {
-   color: #6d6e71; 
-   display: inline-block;
-   font-family: 'Roboto Slab', serif;
-   font-size: 150%;
+  display: inline-block;
+  color: #6d6e71;
+  font-family: 'Roboto Slab', serif;
+  font-size: 150%;
 }
 
 p {
-    color: #939598;
-    font-family: 'Open Sans', sans-serif;
+  color: #939598;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.body-of-card{
-    color: #939598;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 100%;
+.body-of-card {
+  color: #939598;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
 }
 
 button {
-    background-color: transparent;
-    border: none;
+  border: none;
+  background-color: transparent;
 }
 
 .upvote {
-    background-image: url(./images/upvote.svg);
-    background-size: cover;
-    height: 20px;
-    margin-right: 5px; 
-    width: 20px;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  background-image: url(images/upvote.svg);
+  background-size: cover;
 }
 
 .upvote:hover {
-    background-color: transparent;
-    background-image: url(./images/upvote-hover.svg);
-    background-size: cover;
-    height: 20px;
-    width: 20px;
+  background-color: transparent;
+  background-image: url(images/upvote-hover.svg);
+  background-size: cover;
 }
 
 .downvote {
-    background-image: url(./images/downvote.svg);
-    background-size: cover;
-    height: 20px;
-    margin-right: 5px; 
-    width: 20px;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  background-image: url(images/downvote.svg);
+  background-size: cover;
 }
 
 .downvote:hover {
-    background-image: url(./images/downvote-hover.svg);
-    background-size: cover;
-    height: 20px;
-    width: 20px;
+  background-image: url(images/downvote-hover.svg);
+  background-size: cover;
 }
 
 .delete-button {
-    background-image: url(./images/delete.svg);
-    background-size: cover;
-    height: 20px;
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    width: 20px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  background-image: url(images/delete.svg);
+  background-size: cover;
 }
 
 .delete-button:hover {
-    background-image: url(./images/delete-hover.svg);
-    background-size: cover;
-    height: 20px;
-    width: 20px;
+  background-image: url(images/delete-hover.svg);
+  background-size: cover;
 }
 
 @media(max-width: 640px){
 
-    .card-container {
-        width: 85%;
-    }
+  .card-container {
+    width: 85%;
+  }
 
-    #search-input {
-        border: solid #999 1px;
-    }
+  .search-input {
+    border: solid #999 1px;
+  }
 }
 
