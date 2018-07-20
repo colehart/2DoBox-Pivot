@@ -151,13 +151,13 @@ button {
   height: 20px;
   width: 20px;
   margin-right: 5px;
-  background-image: url(./images/upvote.svg);
+  background-image: url(images/upvote.svg);
   background-size: cover;
 }
 
 .upvote:hover {
   background-color: transparent;
-  background-image: url(./images/upvote-hover.svg);
+  background-image: url(images/upvote-hover.svg);
   background-size: cover;
 }
 
@@ -165,12 +165,12 @@ button {
   height: 20px;
   width: 20px;
   margin-right: 5px;
-  background-image: url(./images/downvote.svg);
+  background-image: url(images/downvote.svg);
   background-size: cover;
 }
 
 .downvote:hover {
-  background-image: url(./images/downvote-hover.svg);
+  background-image: url(images/downvote-hover.svg);
   background-size: cover;
 }
 
@@ -180,13 +180,12 @@ button {
   position: absolute;
   top: 15px;
   right: 10px;
-  background-image: url(./images/delete.svg);
+  background-image: url(images/delete.svg);
   background-size: cover;
 }
 
 .delete-button:hover {
-  background-image: url(./images/delete-hover.svg);
-  background-size: cover;
+  background-image: url(images/delete-hover.svg); background-size: cover;
 }
 
 @media(max-width: 640px){
