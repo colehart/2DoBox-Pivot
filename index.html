@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <title>ideaBox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,21 +9,22 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700" rel="stylesheet">
   </head>
   <body>
-    <section class="container-box">
-      <article class="top-box">
+    <section role="main" class="container-box">
+      <article role="form" aria-label="To do list item submission" class="top-box">
         <form>
           <h1 class="idea">idea</h1>
           <h1 class="box">Box</h1>
-          <input id="title-input" type="text" placeholder="Title">
+          <input aria-label="Input list item title" id="title-input" type="text" placeholder="Title">
           <br />
-          <input id="body-input" type="text" placeholder="Body">
+          <input aria-label="Input list item" id="body-input" type="text" placeholder="Body">
           <br />
           <button class="save-btn">save</button>
           <br />
         </form>
       </article>
-      <input id="search-input" type="text" placeholder="Search">
-      <article class="bottom-box"></article>
+      <input aria-label="Search here" id="search-input" type="text" placeholder="Search">
+      <article role="application" class="bottom-box">
+      </article>
     </section>
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
