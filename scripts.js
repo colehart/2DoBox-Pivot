@@ -1,12 +1,8 @@
 // ======================
-//   Global Variables
-// ======================
-
-// ======================
 //    Event Listeners
 // ======================
 
-$(document).ready();
+$(document).ready(getLocalStorage);
 $('.js-save-btn').click(checkInputs);
 $('.js-title-input').on('keyup', enableSave)
 $('.js-body-input').on('keyup', enableSave)
@@ -14,19 +10,42 @@ $('.js-body-input').on('keyup', enableSave)
 // ======================
 //       Functions
 // ======================
-//   Making a New Task
+//     On Page Load
+// ======================
+
+function getLocalStorage() {
+  var currentCollection = JSON.parse(localStorage.getItem('collection'));
+  refreshCard(currentCollection);
+};
+
+function refreshCard(currentCollection) {
+  currentCollection.forEach(function(listItemInstance) {
+    prependCard(listItemInstance);
+  });
+};
+
+function prependCard(cardInfo) {
+  var listCard = `<div aria-label="To do list item" id=${cardInfo.id} class="card-container">
+              <h2 class="title-of-card">${cardInfo.title}</h2>
+              <button class="delete-button"></button>
+              <p class="body-of-card">${cardInfo.body}</p>
+              <button class="upvote"></button>
+              <button class="downvote"></button>
+              <p class="quality">importance: <span class="qualityVariable">${cardInfo.importance}</span></p>
+              <hr>
+            </div>`
+    $('.js-bottom-box').prepend(listCard);
+}
+
+// ======================
+//   Making a New Card
 // ======================
 
 function checkInputs(event) {
   event.preventDefault();
-  if (!$('.js-title-input').val().trim() || !$('.js-body-input').val().trim()) {
-    alert('Please enter a title and description for your idea.');
-    return;
-  } else {
-    var titleValue = $('.js-title-input').val().trim();
-    var bodyValue = $('.js-body-input').val().trim();
-    newCard(titleValue, bodyValue);
-  };
+  var titleValue = $('.js-title-input').val().trim();
+  var bodyValue = $('.js-body-input').val().trim();
+  newCard(titleValue, bodyValue);
 };
 
 function ListItem(title, body) {
@@ -42,16 +61,7 @@ ListItem.prototype.changeImportance = function() {
 
 function newCard(titleValue, bodyValue) {
     var listItem = new ListItem(titleValue, bodyValue);
-    var listCard = `<div aria-label="To do list item" id=${listItem.id} class="card-container">
-              <h2 class="title-of-card">${listItem.title}</h2>
-              <button class="delete-button"></button>
-              <p class="body-of-card">${listItem.body}</p>
-              <button class="upvote"></button>
-              <button class="downvote"></button>
-              <p class="quality">importance: <span class="qualityVariable">${listItem.importance}</span></p>
-              <hr>
-            </div>`
-    $('.js-bottom-box').prepend(listCard);
+    prependCard(listItem);
     updateLocalStorage(listItem);
     clearInputs();
     $('.js-save-btn').prop('disabled', true);
@@ -69,30 +79,28 @@ function enableSave() {
 };
 
 
+
+
 // ================================
 //  Saving a Task to Local Storage
 // ================================
 
-// function saveInput(listItem) {
-//     localStorage.setItem(listItem.id, JSON.stringify(listItem));
-// };
-
-// function getLocalStorage(){
-//     JSON.parse(localStorage.getItem());
-//     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
-//   };
+function initialCard(listItem) {
+  var collection = [];
+  collection.push(listItem);
+  localStorage.setItem('collection', JSON.stringify(collection));
+};
 
 function updateLocalStorage(listItem) {
   if (!localStorage.length) {
-    var collection = [];
-    collection.push(listItem);
-    localStorage.setItem('collection', JSON.stringify(collection));
+    initialCard(listItem);
   } else {
     var currentCollection = JSON.parse(localStorage.getItem('collection'));
     currentCollection.push(listItem);
     localStorage.setItem('collection', JSON.stringify(currentCollection));
-  }
-}
+  };
+};
+
 
 // $('.save-btn').on('click', function(event) {
 //     event.preventDefault();
