@@ -6,9 +6,10 @@
 //    Event Listeners
 // ======================
 
+$(document).ready();
 $('.js-save-btn').click(checkInputs);
-$('#js-title-input').on('keyup', enableSave)
-$('#js-body-input').on('keyup', enableSave)
+$('.js-title-input').on('keyup', enableSave)
+$('.js-body-input').on('keyup', enableSave)
 
 // ======================
 //       Functions
@@ -51,7 +52,7 @@ function newCard(titleValue, bodyValue) {
               <hr>
             </div>`
     $('.js-bottom-box').prepend(listCard);
-    saveInput(listItem);
+    updateLocalStorage(listItem);
     clearInputs();
     $('.js-save-btn').prop('disabled', true);
 };
@@ -61,8 +62,8 @@ function clearInputs() {
 };
 
 function enableSave() {
-  var titleInput = $('.js-title-input');
-  var bodyInput = $('.js-body-input');
+  var titleInput = $('.js-title-input').val().trim();
+  var bodyInput = $('.js-body-input').val().trim();
   var isDisabled = (!titleInput || !bodyInput);
   $('.js-save-btn').prop('disabled', isDisabled);
 };
@@ -72,14 +73,28 @@ function enableSave() {
 //  Saving a Task to Local Storage
 // ================================
 
-function saveInput(listItem) {
-    localStorage.setItem(listItem.id, JSON.stringify(listItem));
-};
+// function saveInput(listItem) {
+//     localStorage.setItem(listItem.id, JSON.stringify(listItem));
+// };
 
-// $.each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
+// function getLocalStorage(){
+//     JSON.parse(localStorage.getItem());
 //     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
-// });
+//   };
+
+function updateLocalStorage(listItem) {
+  if (!localStorage.length) {
+    var collection = [];
+    collection.push(listItem);
+    localStorage.setItem('collection', JSON.stringify(collection));
+  } else {
+    var currentCollection = JSON.parse(localStorage.getItem('collection'));
+    debugger
+    var newCollection = currentCollection.push(listItem);
+    debugger
+    localStorage.setItem('collection', JSON.stringify(newCollection));
+  }
+}
 
 // $('.save-btn').on('click', function(event) {
 //     event.preventDefault();
