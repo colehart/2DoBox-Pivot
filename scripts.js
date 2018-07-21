@@ -4,8 +4,8 @@
 
 $(document).ready(getLocalStorage);
 $('.js-save-btn').click(checkInputs);
-$('.js-title-input').on('keyup', enableSave)
-$('.js-body-input').on('keyup', enableSave)
+$('.js-title-input').on('keyup', enableSave);
+$('.js-body-input').on('keyup', enableSave);
 
 // ======================
 //       Functions
@@ -25,15 +25,15 @@ function refreshCard(currentCollection) {
 };
 
 function prependCard(cardInfo) {
-  var listCard = `<div aria-label="To do list item" id=${cardInfo.id} class="card-container">
+  var listCard = `<article aria-label="To do list item" data-id=${cardInfo.id} class="card-container">
               <h2 class="title-of-card">${cardInfo.title}</h2>
-              <button class="delete-button"></button>
+              <button class="delete-button" onclick="deleteListItem(event)"></button>
               <p class="body-of-card">${cardInfo.body}</p>
               <button class="upvote"></button>
               <button class="downvote"></button>
               <p class="quality">importance: <span class="qualityVariable">${cardInfo.importance}</span></p>
               <hr>
-            </div>`
+            </article>`
     $('.js-bottom-box').prepend(listCard);
 }
 
@@ -78,9 +78,6 @@ function enableSave() {
   $('.js-save-btn').prop('disabled', isDisabled);
 };
 
-
-
-
 // ================================
 //  Saving a Task to Local Storage
 // ================================
@@ -101,6 +98,25 @@ function updateLocalStorage(listItem) {
   };
 };
 
+// ====================================
+//  Removing a Task from Local Storage
+// ====================================
+
+function deleteListItem(event) {
+  var card = $(event.target).parent();
+  var deleteId = card.prop('dataset').id;
+  card.remove();
+  removeFromCollection(deleteId);
+  // if (!localStorage.length) clearSearch();
+};
+
+function removeFromCollection(deleteId) {
+  var currentCollection = JSON.parse(localStorage.getItem('collection'));
+  var newCollection = currentCollection.filter(function(listItem) {
+     return listItem.id !== parseInt(deleteId);
+  });
+  localStorage.setItem('collection', JSON.stringify(newCollection));
+};
 
 // $('.save-btn').on('click', function(event) {
 //     event.preventDefault();
