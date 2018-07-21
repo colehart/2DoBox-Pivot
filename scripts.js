@@ -1,19 +1,30 @@
-var importance = ['None', 'Low', 'Normal', 'High', 'Critical'];
+// ======================
+//   Global Variables
+// ======================
 
+// ======================
+//    Event Listeners
+// ======================
 
-$('.save-btn').on('click', function(event) {
+$('.js-save-btn').click(checkInputs);
+$('#js-title-input').on('keyup', enableSave)
+$('#js-body-input').on('keyup', enableSave)
+
+// ======================
+//       Functions
+// ======================
+//   Making a New Task
+// ======================
+
+function checkInputs(event) {
   event.preventDefault();
-  checkInputs();
-  });
-// $('#title-input').on('keyup', )
-// $('#body-input').on('keyup', )
-
-function checkInputs() {
-  if (!$('.title-input').val().trim() || !$('.body-input').val().trim()) {
+  if (!$('.js-title-input').val().trim() || !$('.js-body-input').val().trim()) {
     alert('Please enter a title and description for your idea.');
     return;
   } else {
-    newCard($('.title-input').val().trim(), $('.body-input').val().trim());
+    var titleValue = $('.js-title-input').val().trim();
+    var bodyValue = $('.js-body-input').val().trim();
+    newCard(titleValue, bodyValue);
   };
 };
 
@@ -21,23 +32,45 @@ function ListItem(title, body) {
   this.id = Date.now();
   this.title = title;
   this.body = body;
-  this.importance = importance[2];
+  this.importance = 'Normal';
 }
 
-function newCard(title, body) {
-    var listItem = new ListItem(title, body)
+ListItem.prototype.changeImportance = function() {
+  var possibleImport = ['None', 'Low', 'Normal', 'High', 'Critical'];
+}
+
+function newCard(titleValue, bodyValue) {
+    var listItem = new ListItem(titleValue, bodyValue);
     var listCard = `<div aria-label="To do list item" id=${listItem.id} class="card-container">
               <h2 class="title-of-card">${listItem.title}</h2>
               <button class="delete-button"></button>
               <p class="body-of-card">${listItem.body}</p>
               <button class="upvote"></button>
-              <button class="downvote"></button> 
+              <button class="downvote"></button>
               <p class="quality">importance: <span class="qualityVariable">${listItem.importance}</span></p>
               <hr>
             </div>`
-    $('.bottom-box').append(listCard);
+    $('.js-bottom-box').prepend(listCard);
     saveInput(listItem);
+    clearInputs();
+    $('.js-save-btn').prop('disabled', true);
 };
+
+function clearInputs() {
+  $('.js-create-card')[0].reset();
+};
+
+function enableSave() {
+  var titleInput = $('.js-title-input');
+  var bodyInput = $('.js-body-input');
+  var isDisabled = (!titleInput || !bodyInput);
+  $('.js-save-btn').prop('disabled', isDisabled);
+};
+
+
+// ================================
+//  Saving a Task to Local Storage
+// ================================
 
 function saveInput(listItem) {
     localStorage.setItem(listItem.id, JSON.stringify(listItem));
@@ -50,12 +83,12 @@ function saveInput(listItem) {
 
 // $('.save-btn').on('click', function(event) {
 //     event.preventDefault();
-//     if ($('#title-input').val() === "" || $('#body-input').val() === "") {
+//     if ($('#js-title-input').val() === "" || $('#js-body-input').val() === "") {
 //        return false;
-//     };  
+//     };
 
 //     numCards++;
-//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
+//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#js-title-input').val(), $('#js-body-input').val(), qualityVariable));
 //     localStoreCard();
 //     $('form')[0].reset();
 // });
@@ -69,11 +102,11 @@ function saveInput(listItem) {
 //         if (event.target.className === "upvote" && currentQuality === "plausible"){
 //             qualityVariable = "genius";
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
+
 //         } else if (event.target.className === "upvote" && currentQuality === "swill") {
 //             qualityVariable = "plausible";
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
+
 //         } else if (event.target.className === "downvote" && currentQuality === "plausible") {
 //             qualityVariable = "swill"
 //             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
@@ -84,7 +117,7 @@ function saveInput(listItem) {
 
 //         } else if (event.target.className === "downvote" && currentQuality === "swill") {
 //             qualityVariable = "swill";
-        
+
 //         } else if (event.target.className === "upvote" && currentQuality === "genius") {
 //             qualityVariable = "genius";
 //         }
@@ -99,7 +132,7 @@ function saveInput(listItem) {
 //     var newCardJSON = JSON.stringify(cardObjectInJS);
 //     localStorage.setItem(cardHTMLId, newCardJSON);
 //     }
-   
+
 //     else if (event.target.className === "delete-button") {
 //         var cardHTML = $(event.target).closest('.card-container').remove();
 //         var cardHTMLId = cardHTML[0].id;
