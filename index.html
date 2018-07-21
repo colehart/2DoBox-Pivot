@@ -14,18 +14,22 @@
     <main class="container-box">
       <header role="banner" class="top-box">
         <h1 class="logo">idea<span>Box</span></h1>
-        <form aria-label="Create a To Do List task">
+        <form class="js-create-card" aria-label="Create a To Do List task">
           <input
             aria-label="Create your task title"
-            class="title-input"
+            class="title-input js-title-input"
             type="text"
             placeholder="Title">
           <input
             aria-label="Create your task description"
-            class="body-input"
+            class="body-input js-body-input"
             type="text"
             placeholder="Body">
-          <button class="save-btn">save</button>
+          <input
+            class="save-btn js-save-btn"
+            type="submit"
+            value="save"
+            disabled>
         </form>
       </header>
       <form class="search">
@@ -35,7 +39,7 @@
           type="text"
           placeholder="Search">
       </form>
-      <section role="application" class="bottom-box">
+      <section role="application" class="bottom-box js-bottom-box">
         <!-- js prepends new cards here -->
       </section>
     </main>
