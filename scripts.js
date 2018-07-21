@@ -89,10 +89,8 @@ function updateLocalStorage(listItem) {
     localStorage.setItem('collection', JSON.stringify(collection));
   } else {
     var currentCollection = JSON.parse(localStorage.getItem('collection'));
-    debugger
-    var newCollection = currentCollection.push(listItem);
-    debugger
-    localStorage.setItem('collection', JSON.stringify(newCollection));
+    currentCollection.push(listItem);
+    localStorage.setItem('collection', JSON.stringify(currentCollection));
   }
 }
 
