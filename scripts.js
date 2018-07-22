@@ -6,7 +6,7 @@ $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').click(saveInputValues);
-$('.js-search-input').on('keyup', searchFilter);
+$('.js-filter-input').on('keyup', filterCards);
 
 // ======================
 //       Functions
@@ -40,6 +40,7 @@ function parseLocalStorage() {
 function prependLocalStorage() {
   var currentCollection = parseLocalStorage();
   if (currentCollection) {
+    enableFilter();
     currentCollection.forEach(function(listItemInstance) {
       prependCard(listItemInstance);
     });
@@ -57,7 +58,6 @@ function prependCard(cardInfo) {
               <hr>
             </article>`
     $('.js-bottom-box').prepend(listCard);
-    enableSearch();
 }
 
 // ======================
@@ -92,6 +92,7 @@ function newCard(titleValue, bodyValue) {
     prependCard(listItem);
     addToLocalStorage(listItem);
     resetForm();
+    enableFilter();
 };
 
 function resetForm() {
@@ -128,7 +129,7 @@ function deleteListItem(event) {
   var deleteId = card.prop('dataset').id;
   card.remove();
   removeFromCollection(deleteId);
-  if (!localStorage.length) resetSearch();
+  if (!localStorage.length) resetFilter();
 };
 
 function removeFromCollection(deleteId) {
@@ -201,27 +202,27 @@ function updateLocalStorage(card, cardId) {
 };
 
 // =========================
-// Search Bar functionality
+// Filter Bar functionality
 // =========================
 
-function enableSearch() {
+function enableFilter() {
   var isDisabled = (!localStorage.length);
-  $('.js-search-input').prop('disabled', isDisabled);
+  $('.js-filter-input').prop('disabled', isDisabled);
 };
 
-function searchFilter() {
+function filterCards() {
   var cards = $('article');
   cards.filter(function(index) {
-    var terms = $('.js-search-input').val().toLowerCase();
+    var terms = $('.js-filter-input').val().toLowerCase();
     var title = $(this).find('.js-title').text().toLowerCase();
     var body = $(this).children('.js-body').text().toLowerCase();
     title.includes(terms) || body.includes(terms) ? $(this).show() : $(this).hide();
   });
 };
 
-function resetSearch() {
-  $('.js-search-input').val('');
-  $('.js-search-input').prop('disabled', true);
+function resetFilter() {
+  $('.js-filter-input').val('');
+  $('.js-filter-input').prop('disabled', true);
 };
 
 
