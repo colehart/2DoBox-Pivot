@@ -20,12 +20,6 @@ function ListItem(title, body) {
   this.importance = 'Normal';
 }
 
-// ListItem.prototype.changeImportance = function(cardQuality, event) {
-//   var possibleImport = ['None', 'Low', 'Normal', 'High', 'Critical'];
-//   debugger;
-//   currentIndex = possibleImport.inArray(cardQuality);
-// }
-
 // ===============================
 //   Local Storage - get and set
 // ===============================
@@ -62,6 +56,7 @@ function prependCard(cardInfo) {
               <hr>
             </article>`
     $('.js-bottom-box').prepend(listCard);
+    enableSearch();
 }
 
 // ======================
@@ -132,7 +127,7 @@ function deleteListItem(event) {
   var deleteId = card.prop('dataset').id;
   card.remove();
   removeFromCollection(deleteId);
-  // if (!localStorage.length) clearSearch();
+  if (!localStorage.length) resetSearch();
 };
 
 function removeFromCollection(deleteId) {
@@ -140,7 +135,7 @@ function removeFromCollection(deleteId) {
   var newCollection = currentCollection.filter(function(listItem) {
      return listItem.id !== parseInt(deleteId);
   });
-  stringifyNewCollection(newCollection);
+  !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
 };
 
 // ===========================================
@@ -204,62 +199,53 @@ function updateLocalStorage(card, cardId) {
   stringifyNewCollection(currentCollection);
 };
 
+// =========================
+// Search Bar functionality
+// =========================
 
-// $('.save-btn').on('click', function(event) {
-//     event.preventDefault();
-//     if ($('#js-title-input').val() === "" || $('#js-body-input').val() === "") {
-//        return false;
-//     };
 
-//     numCards++;
-//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#js-title-input').val(), $('#js-body-input').val(), qualityVariable));
-//     localStoreCard();
-//     $('form')[0].reset();
-// });
+function enableSearch() {
+  var isDisabled = (!localStorage.length);
+  $('.search-input').prop('disabled', isDisabled);
+};
 
-// $(".bottom-box").on('click', function(event){
-//     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//     var qualityVariable;
+function resetSearch() {
+  console.log('hi')
+  $('.search-input').val('');
+  $('.search-input').prop('disabled', true);
+};
 
-//     if (event.target.className === "upvote" || event.target.className === "downvote"){
 
-//         if (event.target.className === "upvote" && currentQuality === "plausible"){
-//             qualityVariable = "genius";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "upvote" && currentQuality === "swill") {
-//             qualityVariable = "plausible";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "downvote" && currentQuality === "plausible") {
-//             qualityVariable = "swill"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "downvote" && currentQuality === "genius") {
-//             qualityVariable = "plausible"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-//         } else if (event.target.className === "downvote" && currentQuality === "swill") {
-//             qualityVariable = "swill";
 
-//         } else if (event.target.className === "upvote" && currentQuality === "genius") {
-//             qualityVariable = "genius";
-//         }
 
-//     var cardHTML = $(event.target).closest('.card-container');
-//     var cardHTMLId = cardHTML[0].id;
-//     var cardObjectInJSON = localStorage.getItem(cardHTMLId);
-//     var cardObjectInJS = JSON.parse(cardObjectInJSON);
 
-//     cardObjectInJS.quality = qualityVariable;
 
-//     var newCardJSON = JSON.stringify(cardObjectInJS);
-//     localStorage.setItem(cardHTMLId, newCardJSON);
-//     }
 
-//     else if (event.target.className === "delete-button") {
-//         var cardHTML = $(event.target).closest('.card-container').remove();
-//         var cardHTMLId = cardHTML[0].id;
-//         localStorage.removeItem(cardHTMLId);
-//     }
-// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
