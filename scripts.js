@@ -7,8 +7,6 @@ $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
-// $('.js-title').blur(editCardText);
-// $('.js-body').blur(editCardText);
 
 // ======================
 //       Functions
@@ -60,6 +58,8 @@ function prependCard(cardInfo) {
               <hr>
             </article>`
     $('.js-bottom-box').prepend(listCard);
+    $('h2').on('blur', editCardText);
+    $('p').on('blur', editCardText);
 }
 
 // ======================
