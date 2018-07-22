@@ -3,11 +3,33 @@
 // ======================
 
 $(document).ready(prependLocalStorage);
-// $(document).on('click', checkSource);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
+// $('.js-title').on('keyup', checkKey);
+// $('.js-title').on('focusout', editCardText);
+
+$('.js-title').on({
+  keyup: function(event) {
+    checkKey(event)
+  },
+  focusout: function(event) {
+    editCardText(event)
+  }
+});
+
+// $('.js-body').on('keyup', checkKey);
+// $('.js-body').on('focusout', editCardText);
+
+$('.js-body').on({
+  keyup: function(event) {
+    checkKey(event)
+  },
+  focusout: function(event) {
+    editCardText(event)
+  }
+});
 
 // ======================
 //       Functions
@@ -50,9 +72,9 @@ function prependLocalStorage() {
 
 function prependCard(cardInfo) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-              <h2 class="title-of-card js-title" onkeydown="checkKey(event)" contenteditable>${cardInfo.title}</h2>
+              <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
               <button class="delete-button" onclick="deleteListItem(event)"></button>
-              <p class="body-of-card js-body" onkeydown="checkKey(event)" contenteditable>${cardInfo.body}</p>
+              <p class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
               <button class="upvote" onclick="getQuality(event)"></button>
               <button class="downvote" onclick="getQuality(event)"></button>
               <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
@@ -150,9 +172,8 @@ function removeFromCollection(deleteId) {
 // ===========================================
 
 function checkKey(event) {
-  if (trueEnter(event)) {
-    editCardText(event);
-  }
+  // $(window).on('click', checkSource);
+  if (trueEnter(event)) editCardText(event);
 }
 
 function trueEnter(event) {
@@ -163,12 +184,15 @@ function trueEnter(event) {
 }
 
 // function checkSource(event) {
-//   if (event !== undefined) {
-//     return $(event.target);
+//   if ($(event.target).prop('className') === '.js-title' || $(event.target).prop('className') === '.js-body') {
+//   } else {
+//     debugger;
+//     $('.js-title').trigger('keydown', event.which = 13);
 //   }
 // }
 
 function editCardText(event) {
+  debugger;
   if (!$(event.target).text()) {
     alertEmpty()
   } else {
