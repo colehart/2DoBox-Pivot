@@ -3,11 +3,12 @@
 // ======================
 
 $(document).ready(prependLocalStorage);
-// $(document).on('click', checkSource);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
+// $('.js-title').blur(editCardText);
+// $('.js-body').blur(editCardText);
 
 // ======================
 //       Functions
@@ -150,9 +151,7 @@ function removeFromCollection(deleteId) {
 // ===========================================
 
 function checkKey(event) {
-  if (trueEnter(event)) {
-    editCardText(event);
-  }
+  if (trueEnter(event)) editCardText(event);
 }
 
 function trueEnter(event) {
@@ -161,12 +160,6 @@ function trueEnter(event) {
     return true;
   }
 }
-
-// function checkSource(event) {
-//   if (event !== undefined) {
-//     return $(event.target);
-//   }
-// }
 
 function editCardText(event) {
   if (!$(event.target).text()) {
