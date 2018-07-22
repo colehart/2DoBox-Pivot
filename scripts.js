@@ -5,8 +5,10 @@
 $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
-$('.js-save-btn').click(saveInputValues);
+$('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
+// $('.js-title'.text).on('input', isEnter);
+// $('.js-body'.text).on('input', isEnter);
 
 // ======================
 //       Functions
@@ -49,9 +51,9 @@ function prependLocalStorage() {
 
 function prependCard(cardInfo) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-              <h2 class="title-of-card js-title" oninput="editCardText(event)" contenteditable>${cardInfo.title}</h2>
+              <h2 class="title-of-card js-title" onkeydown="editCardText(event)" contenteditable>${cardInfo.title}</h2>
               <button class="delete-button" onclick="deleteListItem(event)"></button>
-              <p class="body-of-card js-body" oninput="editCardText(event)" contenteditable>${cardInfo.body}</p>
+              <p class="body-of-card js-body" onkeydown="editCardText(event)" contenteditable>${cardInfo.body}</p>
               <button class="upvote" onclick="getQuality(event)"></button>
               <button class="downvote" onclick="getQuality(event)"></button>
               <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
@@ -145,13 +147,13 @@ function removeFromCollection(deleteId) {
 // ===========================================
 
 function editCardText(event) {
-  if (!$(event.target).text()) {
-    alert('Please enter a title and description for your idea.');
-    return;
-  } else {
+  if ((event.which === 13 && event.shiftKey === false) || $(event.target).text()) {
     var card = $(event.target).closest('article');
     var cardId = card.prop('dataset').id;
     updateLocalStorage(card, cardId);
+  } else {
+    alert('Please enter a title and description for your idea.');
+    return;
   }
 }
 
