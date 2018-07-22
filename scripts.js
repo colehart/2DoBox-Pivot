@@ -6,6 +6,7 @@ $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').click(saveInputValues);
+$('.js-search-input').on('keyup', searchFilter);
 
 // ======================
 //       Functions
@@ -47,9 +48,9 @@ function prependLocalStorage() {
 
 function prependCard(cardInfo) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-              <h2 class="title-of-card js-title-of-card" oninput="editCardText(event)" contenteditable>${cardInfo.title}</h2>
+              <h2 class="title-of-card js-title" oninput="editCardText(event)" contenteditable>${cardInfo.title}</h2>
               <button class="delete-button" onclick="deleteListItem(event)"></button>
-              <p class="body-of-card js-body-of-card" oninput="editCardText(event)" contenteditable>${cardInfo.body}</p>
+              <p class="body-of-card js-body" oninput="editCardText(event)" contenteditable>${cardInfo.body}</p>
               <button class="upvote" onclick="getQuality(event)"></button>
               <button class="downvote" onclick="getQuality(event)"></button>
               <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
@@ -191,8 +192,8 @@ function updateLocalStorage(card, cardId) {
   var currentCollection = parseLocalStorage();
   currentCollection.forEach(function(listItem) {
     if (listItem.id === parseInt(cardId)) {
-      listItem.title = card.children('.js-title-of-card').text();
-      listItem.body = card.children('.js-body-of-card').text();
+      listItem.title = card.children('.js-title').text();
+      listItem.body = card.children('.js-body').text();
       listItem.importance = card.find('.js-quality').text();
     };
   });
@@ -203,20 +204,25 @@ function updateLocalStorage(card, cardId) {
 // Search Bar functionality
 // =========================
 
-
 function enableSearch() {
   var isDisabled = (!localStorage.length);
-  $('.search-input').prop('disabled', isDisabled);
+  $('.js-search-input').prop('disabled', isDisabled);
+};
+
+function searchFilter() {
+  var cards = $('article');
+  cards.filter(function(index) {
+    var terms = $('.js-search-input').val().toLowerCase();
+    var title = $(this).find('.js-title').text().toLowerCase();
+    var body = $(this).children('.js-body').text().toLowerCase();
+    title.includes(terms) || body.includes(terms) ? $(this).show() : $(this).hide();
+  });
 };
 
 function resetSearch() {
-  console.log('hi')
-  $('.search-input').val('');
-  $('.search-input').prop('disabled', true);
+  $('.js-search-input').val('');
+  $('.js-search-input').prop('disabled', true);
 };
-
-
-
 
 
 
