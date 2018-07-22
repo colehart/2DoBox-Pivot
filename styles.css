@@ -110,8 +110,21 @@ input {
   outline: none;
 }
 
+.save-btn[value='save'] {
+  text-align: center;
+}
+
 .save-btn:hover {
   background-color: #0000b3;
+}
+
+.save-btn:focus {
+  outline: 0;
+}
+
+.save-btn:disabled {
+  background-color: #939598;
+  cursor: default;
 }
 
 /* Styling for application section where tasks populate */

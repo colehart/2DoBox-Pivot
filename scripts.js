@@ -1,32 +1,18 @@
 // ======================
-//   Global Variables
-// ======================
-
-// ======================
 //    Event Listeners
 // ======================
 
-$('.js-save-btn').click(checkInputs);
-$('#js-title-input').on('keyup', enableSave)
-$('#js-body-input').on('keyup', enableSave)
+$(document).ready(prependLocalStorage);
+$('.js-title-input').on('keyup', enableSave);
+$('.js-body-input').on('keyup', enableSave);
+$('.js-save-btn').click(saveInputValues);
+$('.js-search-input').on('keyup', searchFilter);
 
 // ======================
 //       Functions
-// ======================
-//   Making a New Task
-// ======================
-
-function checkInputs(event) {
-  event.preventDefault();
-  if (!$('.js-title-input').val().trim() || !$('.js-body-input').val().trim()) {
-    alert('Please enter a title and description for your idea.');
-    return;
-  } else {
-    var titleValue = $('.js-title-input').val().trim();
-    var bodyValue = $('.js-body-input').val().trim();
-    newCard(titleValue, bodyValue);
-  };
-};
+// ===============================================
+//   Constructor Functions and Prototype Methods
+// ===============================================
 
 function ListItem(title, body) {
   this.id = Date.now();
@@ -35,107 +21,237 @@ function ListItem(title, body) {
   this.importance = 'Normal';
 }
 
-ListItem.prototype.changeImportance = function() {
-  var possibleImport = ['None', 'Low', 'Normal', 'High', 'Critical'];
+// ===============================
+//   Local Storage - get and set
+// ===============================
+
+function stringifyNewCollection(newCollection) {
+  localStorage.setItem('collection', JSON.stringify(newCollection));
 }
 
-function newCard(titleValue, bodyValue) {
-    var listItem = new ListItem(titleValue, bodyValue);
-    var listCard = `<div aria-label="To do list item" id=${listItem.id} class="card-container">
-              <h2 class="title-of-card">${listItem.title}</h2>
-              <button class="delete-button"></button>
-              <p class="body-of-card">${listItem.body}</p>
-              <button class="upvote"></button>
-              <button class="downvote"></button>
-              <p class="quality">importance: <span class="qualityVariable">${listItem.importance}</span></p>
-              <hr>
-            </div>`
-    $('.js-bottom-box').prepend(listCard);
-    saveInput(listItem);
-    clearInputs();
-    $('.js-save-btn').prop('disabled', true);
+function parseLocalStorage() {
+  return JSON.parse(localStorage.getItem('collection'));
 };
 
-function clearInputs() {
-  $('.js-create-card')[0].reset();
+// ======================
+//     On Page Load
+// ======================
+
+function prependLocalStorage() {
+  var currentCollection = parseLocalStorage();
+  if (currentCollection) {
+    currentCollection.forEach(function(listItemInstance) {
+      prependCard(listItemInstance);
+    });
+  };
 };
+
+function prependCard(cardInfo) {
+  var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
+              <h2 class="title-of-card js-title" oninput="editCardText(event)" contenteditable>${cardInfo.title}</h2>
+              <button class="delete-button" onclick="deleteListItem(event)"></button>
+              <p class="body-of-card js-body" oninput="editCardText(event)" contenteditable>${cardInfo.body}</p>
+              <button class="upvote" onclick="getQuality(event)"></button>
+              <button class="downvote" onclick="getQuality(event)"></button>
+              <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
+              <hr>
+            </article>`
+    $('.js-bottom-box').prepend(listCard);
+    enableSearch();
+}
+
+// ======================
+//   Making a New Card
+// ======================
 
 function enableSave() {
-  var titleInput = $('.js-title-input');
-  var bodyInput = $('.js-body-input');
+  var titleInput = $('.js-title-input').val().trim();
+  var bodyInput = $('.js-body-input').val().trim();
   var isDisabled = (!titleInput || !bodyInput);
   $('.js-save-btn').prop('disabled', isDisabled);
 };
 
+function saveInputValues(event) {
+  event.preventDefault();
+  var titleValue = $('.js-title-input').val().trim();
+  var bodyValue = $('.js-body-input').val().trim();
+  checkInputs(titleValue, bodyValue);
+}
+
+function checkInputs(titleValue, bodyValue) {
+  if (!titleValue || !bodyValue) {
+    alert('Please enter a title and description for your idea.');
+    return;
+  } else {
+    newCard(titleValue, bodyValue);
+  };
+};
+
+function newCard(titleValue, bodyValue) {
+    var listItem = new ListItem(titleValue, bodyValue);
+    prependCard(listItem);
+    addToLocalStorage(listItem);
+    resetForm();
+};
+
+function resetForm() {
+  $('.js-create-card')[0].reset();
+  $('.js-save-btn').prop('disabled', true);
+};
 
 // ================================
 //  Saving a Task to Local Storage
 // ================================
 
-function saveInput(listItem) {
-    localStorage.setItem(listItem.id, JSON.stringify(listItem));
+function addToLocalStorage(listItem) {
+  if (!localStorage.length) {
+    initialCard(listItem);
+  } else {
+    var currentCollection = parseLocalStorage();
+    currentCollection.push(listItem);
+    stringifyNewCollection(currentCollection);
+  };
 };
 
-// $.each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
-//     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
-// });
+function initialCard(listItem) {
+  var firstCollection = [];
+  firstCollection.push(listItem);
+  stringifyNewCollection(firstCollection);
+};
 
-// $('.save-btn').on('click', function(event) {
-//     event.preventDefault();
-//     if ($('#js-title-input').val() === "" || $('#js-body-input').val() === "") {
-//        return false;
-//     };
+// ====================================
+//  Removing a Task from Local Storage
+// ====================================
 
-//     numCards++;
-//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#js-title-input').val(), $('#js-body-input').val(), qualityVariable));
-//     localStoreCard();
-//     $('form')[0].reset();
-// });
+function deleteListItem(event) {
+  var card = $(event.target).parent();
+  var deleteId = card.prop('dataset').id;
+  card.remove();
+  removeFromCollection(deleteId);
+  if (!localStorage.length) resetSearch();
+};
 
-// $(".bottom-box").on('click', function(event){
-//     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//     var qualityVariable;
+function removeFromCollection(deleteId) {
+  var currentCollection = parseLocalStorage();
+  var newCollection = currentCollection.filter(function(listItem) {
+     return listItem.id !== parseInt(deleteId);
+  });
+  !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
+};
 
-//     if (event.target.className === "upvote" || event.target.className === "downvote"){
+// ===========================================
+//  Editing a Task and Updating Local Storage
+// ===========================================
 
-//         if (event.target.className === "upvote" && currentQuality === "plausible"){
-//             qualityVariable = "genius";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function editCardText(event) {
+  if (!$(event.target).text()) {
+    alert('Please enter a title and description for your idea.');
+    return;
+  } else {
+    var card = $(event.target).closest('article');
+    var cardId = card.prop('dataset').id;
+    updateLocalStorage(card, cardId);
+  }
+}
 
-//         } else if (event.target.className === "upvote" && currentQuality === "swill") {
-//             qualityVariable = "plausible";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function getQuality(event) {
+  var card = $(event.target).closest('article');
+  var cardId = card.prop('dataset').id;
+  var qualityHtml = card.find('.js-quality').text()
+  var possibleImport = ['None', 'Low', 'Normal', 'High', 'Critical'];
+  var currIndex = jQuery.inArray(qualityHtml, possibleImport);
+  setNewQuality(event, card, cardId, possibleImport, currIndex);
+};
 
-//         } else if (event.target.className === "downvote" && currentQuality === "plausible") {
-//             qualityVariable = "swill"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function setNewQuality(event, card, cardId, possibleImport, currIndex) {
+  if ($(event.target).prop('className') === 'upvote') {
+    upQuality(card, possibleImport, currIndex);
+  } else {
+    downQuality(card, possibleImport, currIndex);
+  };
+  updateLocalStorage(card, cardId);
+};
 
-//         } else if (event.target.className === "downvote" && currentQuality === "genius") {
-//             qualityVariable = "plausible"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+function upQuality(card, possibleImport, currIndex) {
+  possibleImport.forEach(function(element, index, array) {
+    if ((index === currIndex) && (index < array.length - 1)) {
+      card.find('.js-quality').text(`${possibleImport[currIndex + 1]}`);
+    };
+  });
+};
 
-//         } else if (event.target.className === "downvote" && currentQuality === "swill") {
-//             qualityVariable = "swill";
+function downQuality(card, possibleImport, currIndex) {
+  possibleImport.forEach(function(element, index, array) {
+    if ((index === currIndex) && (index > 0)) {
+      card.find('.js-quality').text(`${possibleImport[currIndex - 1]}`);
+    };
+  });
+};
 
-//         } else if (event.target.className === "upvote" && currentQuality === "genius") {
-//             qualityVariable = "genius";
-//         }
+function updateLocalStorage(card, cardId) {
+  var currentCollection = parseLocalStorage();
+  currentCollection.forEach(function(listItem) {
+    if (listItem.id === parseInt(cardId)) {
+      listItem.title = card.children('.js-title').text();
+      listItem.body = card.children('.js-body').text();
+      listItem.importance = card.find('.js-quality').text();
+    };
+  });
+  stringifyNewCollection(currentCollection);
+};
 
-//     var cardHTML = $(event.target).closest('.card-container');
-//     var cardHTMLId = cardHTML[0].id;
-//     var cardObjectInJSON = localStorage.getItem(cardHTMLId);
-//     var cardObjectInJS = JSON.parse(cardObjectInJSON);
+// =========================
+// Search Bar functionality
+// =========================
 
-//     cardObjectInJS.quality = qualityVariable;
+function enableSearch() {
+  var isDisabled = (!localStorage.length);
+  $('.js-search-input').prop('disabled', isDisabled);
+};
 
-//     var newCardJSON = JSON.stringify(cardObjectInJS);
-//     localStorage.setItem(cardHTMLId, newCardJSON);
-//     }
+function searchFilter() {
+  var cards = $('article');
+  cards.filter(function(index) {
+    var terms = $('.js-search-input').val().toLowerCase();
+    var title = $(this).find('.js-title').text().toLowerCase();
+    var body = $(this).children('.js-body').text().toLowerCase();
+    title.includes(terms) || body.includes(terms) ? $(this).show() : $(this).hide();
+  });
+};
 
-//     else if (event.target.className === "delete-button") {
-//         var cardHTML = $(event.target).closest('.card-container').remove();
-//         var cardHTMLId = cardHTML[0].id;
-//         localStorage.removeItem(cardHTMLId);
-//     }
-// });
+function resetSearch() {
+  $('.js-search-input').val('');
+  $('.js-search-input').prop('disabled', true);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
