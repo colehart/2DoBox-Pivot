@@ -3,12 +3,11 @@
 // ======================
 
 $(document).ready(prependLocalStorage);
+// $(document).on('click', checkSource);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
-// $('.js-title'.text).on('input', isEnter);
-// $('.js-body'.text).on('input', isEnter);
 
 // ======================
 //       Functions
@@ -51,9 +50,9 @@ function prependLocalStorage() {
 
 function prependCard(cardInfo) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-              <h2 class="title-of-card js-title" onkeydown="editCardText(event)" contenteditable>${cardInfo.title}</h2>
+              <h2 class="title-of-card js-title" onkeydown="checkKey(event)" contenteditable>${cardInfo.title}</h2>
               <button class="delete-button" onclick="deleteListItem(event)"></button>
-              <p class="body-of-card js-body" onkeydown="editCardText(event)" contenteditable>${cardInfo.body}</p>
+              <p class="body-of-card js-body" onkeydown="checkKey(event)" contenteditable>${cardInfo.body}</p>
               <button class="upvote" onclick="getQuality(event)"></button>
               <button class="downvote" onclick="getQuality(event)"></button>
               <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
@@ -82,12 +81,16 @@ function saveInputValues(event) {
 
 function checkInputs(titleValue, bodyValue) {
   if (!titleValue || !bodyValue) {
-    alert('Please enter a title and description for your idea.');
-    return;
+    alertEmpty();
   } else {
     newCard(titleValue, bodyValue);
   };
 };
+
+function alertEmpty() {
+  alert('Please enter a title and description for your idea.');
+  return;
+}
 
 function newCard(titleValue, bodyValue) {
     var listItem = new ListItem(titleValue, bodyValue);
@@ -146,16 +149,34 @@ function removeFromCollection(deleteId) {
 //  Editing a Task and Updating Local Storage
 // ===========================================
 
+function checkKey(event) {
+  if (trueEnter(event)) {
+    editCardText(event);
+  }
+}
+
+function trueEnter(event) {
+  if (event.which === 13 && event.shiftKey === false) {
+    $(event.target).blur();
+    return true;
+  }
+}
+
+// function checkSource(event) {
+//   if (event !== undefined) {
+//     return $(event.target);
+//   }
+// }
+
 function editCardText(event) {
-  if ((event.which === 13 && event.shiftKey === false) || $(event.target).text()) {
+  if (!$(event.target).text()) {
+    alertEmpty()
+  } else {
     var card = $(event.target).closest('article');
     var cardId = card.prop('dataset').id;
     updateLocalStorage(card, cardId);
-  } else {
-    alert('Please enter a title and description for your idea.');
-    return;
-  }
-}
+  };
+};
 
 function getQuality(event) {
   var card = $(event.target).closest('article');
