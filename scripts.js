@@ -2,6 +2,7 @@ $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
+$('.js-filter-btn').on('click', toggleFilterButton);
 $('.js-filter-input').on('keyup', filterCards);
 // See prependCard() template literal, etc. for card-specific event listeners
 
@@ -47,8 +48,8 @@ function prependCard(cardInfo) {
     <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
     <button class="delete-button" onclick="deleteListItem(event)"></button>
     <p class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
-    <button class="upvote" onclick="getQuality(event)"></button>
-    <button class="downvote" onclick="getQuality(event)"></button>
+    <button class="upvote" onclick="getCardQuality(event)"></button>
+    <button class="downvote" onclick="getCardQuality(event)"></button>
     <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
     <hr>
   </article>`
@@ -146,7 +147,7 @@ function editCardText(event) {
   };
 };
 
-function getQuality(event) {
+function getCardQuality(event) {
   var card = $(event.target).closest('article');
   var cardId = card.prop('dataset').id;
   var qualityHtml = card.find('.js-quality').text()
@@ -218,7 +219,7 @@ function removeFromCollection(deleteId) {
 
 function enableFilter() {
   var isDisabled = (!localStorage.length);
-  $('.js-filter-input').prop('disabled', isDisabled);
+  $('.js-filter-input, .js-filter-btn').prop('disabled', isDisabled);
 };
 
 function filterCards() {
@@ -235,3 +236,52 @@ function resetFilter() {
   $('.js-filter-input').val('');
   $('.js-filter-input').prop('disabled', true);
 };
+
+// ============================================================================
+//   Filter by Importance Buttons
+// ============================================================================
+
+function toggleFilterButton(event) {
+  var buttonQualities = []
+  var activeSiblings = $(event.target).siblings().filter(function(index) {
+    return $(this).hasClass('active-filter');
+  });
+  $(event.target).toggleClass('active-filter');
+  populateQualities(event, activeSiblings, buttonQualities);
+};
+
+function populateQualities(event, activeSiblings, buttonQualities) {
+  if ($(event.target).hasClass('active-filter')) {
+    buttonQualities.push($(event.target).text());
+  }
+  if (activeSiblings) {
+    activeSiblings.each(function(index) {
+      buttonQualities.push($(this).text());
+    });
+  };
+
+  toggleCards(buttonQualities);
+}
+
+function toggleCards(buttonQualities) {
+  var cards = $('article');
+  if (!buttonQualities.length) {
+    cardShow(cards);
+  } else {
+    cardFilter(cards, buttonQualities);
+  };
+};
+
+function cardShow(cards) {
+  cards.each(function(index) {
+    $(this).show();
+  });
+};
+
+function cardFilter(cards, buttonQualities) {
+  cards.filter(function(index) {
+    var cardQuality = $(this).find('span').text().toLowerCase();
+    buttonQualities.includes(cardQuality) ? $(this).show() : $(this).hide();
+  });
+};
+
