@@ -69,7 +69,7 @@ function prependCard(cardInfo, completed) {
   $('.js-bottom-box').prepend(listCard);
   if (completed) {
     $('.card-container').first().toggleClass('complete')
-};
+  };
   $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
@@ -258,7 +258,7 @@ function resetFilter() {
 // ============================================================================
 
 function toggleFilterButton(event) {
-  var buttonQualities = []
+  var buttonQualities = [];
   var activeSiblings = $(event.target).siblings().filter(function(index) {
     return $(this).hasClass('active-filter');
   });
@@ -269,7 +269,8 @@ function toggleFilterButton(event) {
 function populateQualities(event, activeSiblings, buttonQualities) {
   if ($(event.target).hasClass('active-filter')) {
     buttonQualities.push($(event.target).text());
-  }
+  };
+
   if (activeSiblings) {
     activeSiblings.each(function(index) {
       buttonQualities.push($(this).text());
@@ -277,7 +278,7 @@ function populateQualities(event, activeSiblings, buttonQualities) {
   };
 
   toggleCards(buttonQualities);
-}
+};
 
 function toggleCards(buttonQualities) {
   var cards = $('article');
@@ -301,9 +302,9 @@ function cardFilter(cards, buttonQualities) {
   });
 };
 
-// =============================================================================
-//    Marking a Task as Complete
-// =============================================================================
+// ============================================================================
+//   Marking a Task as Complete
+// ============================================================================
 
 function toggleComplete(event) {
   var currentCollection = parseLocalStorage();
@@ -315,9 +316,9 @@ function toggleComplete(event) {
 
 function setComplete(event, task, taskID, currentCollection) {
   if (task.prop('className') === 'card-container complete') {
-     storeCompleteProp(taskID, currentCollection); 
+     storeCompleteProp(taskID, currentCollection);
     } else if (task.prop('className') === 'card-container') {
-     storeIncomplete(taskID, currentCollection); 
+     storeIncomplete(taskID, currentCollection);
     };
   };
 
@@ -339,9 +340,9 @@ function storeIncomplete(taskID, currentCollection) {
   });
 };
 
-// ==========================================
+// ============================================================================
 //   Show Completed Tasks
-// ==========================================
+// ============================================================================
 
 function showComplete(event) {
   event.preventDefault();
