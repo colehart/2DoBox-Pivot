@@ -1,7 +1,3 @@
-// ============================================================================
-//   Event Listeners
-// ============================================================================
-
 $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
@@ -9,8 +5,6 @@ $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
 // See prependCard() template literal, etc. for card-specific event listeners
 
-// ============================================================================
-//   Functions
 // ============================================================================
 //   Constructor Functions and Prototype Methods
 // ============================================================================
@@ -62,8 +56,6 @@ function prependCard(cardInfo) {
   $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
-// ============================================================================
-//   CRUD Functionality
 // ============================================================================
 //   Creating a New Card
 // ============================================================================
@@ -220,8 +212,6 @@ function removeFromCollection(deleteId) {
   !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
 };
 
-// ============================================================================
-//   Other Features
 // ============================================================================
 //   Filter Bar
 // ============================================================================
