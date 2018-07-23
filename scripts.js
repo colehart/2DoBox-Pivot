@@ -6,27 +6,6 @@ $('.js-filter-input').on('keyup', filterCards);
 $('.js-show-complete').on('click', showComplete);
 // See prependCard() template literal, etc. for card-specific event listeners
 
-
-function showComplete(event) {
-  event.preventDefault();
-  var currentCollection = parseLocalStorage();
-  prependComplete(currentCollection);
-  disableCompleteTaskBtn(event);
-};
-
-function prependComplete(collection) {
-  var completedTasks = collection.filter(function(listItem) {
-   return listItem.complete === true;
-  });
-  completedTasks.forEach(function(listItem) {
-    prependCard(listItem, true);
-  });
-};
-
-function disableCompleteTaskBtn(event) {
-  $('.js-show-complete').prop('disabled', true)
-};
-
 // ============================================================================
 //   Constructor Functions and Prototype Methods
 // ============================================================================
@@ -309,6 +288,29 @@ function storeIncomplete(taskID, currentCollection) {
   });
 };
 
+// ==========================================
+//   Show Completed Tasks
+// ==========================================
+
+function showComplete(event) {
+  event.preventDefault();
+  var currentCollection = parseLocalStorage();
+  prependComplete(currentCollection);
+  disableCompleteTaskBtn(event);
+};
+
+function prependComplete(collection) {
+  var completedTasks = collection.filter(function(listItem) {
+   return listItem.complete === true;
+  });
+  completedTasks.forEach(function(listItem) {
+    prependCard(listItem, true);
+  });
+};
+
+function disableCompleteTaskBtn(event) {
+  $('.js-show-complete').prop('disabled', true)
+};
 
 
 
