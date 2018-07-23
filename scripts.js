@@ -37,10 +37,12 @@ function parseLocalStorage() {
 
 function prependLocalStorage() {
   var currentCollection = parseLocalStorage();
-  var sortedCollection = currentCollection.filter(function(listItem) {
-    return listItem.complete === null
-  });
-  printStorage(sortedCollection);
+  if (currentCollection.length) {
+    var sortedCollection = currentCollection.filter(function(listItem) {
+      return listItem.complete === null
+    });
+    printStorage(sortedCollection);
+  };
 };
 
 function printStorage(collection) {
@@ -349,12 +351,14 @@ function showComplete(event) {
 };
 
 function prependComplete(collection) {
-  var completedTasks = collection.filter(function(listItem) {
-   return listItem.complete === true;
-  });
-  completedTasks.forEach(function(listItem) {
-    prependCard(listItem, true);
-  });
+  if (collection.length) {
+    var completedTasks = collection.filter(function(listItem) {
+     return listItem.complete === true;
+    });
+    completedTasks.forEach(function(listItem) {
+      prependCard(listItem, true);
+    });
+  };
 };
 
 function disableCompleteTaskBtn(event) {
