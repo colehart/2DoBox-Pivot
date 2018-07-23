@@ -129,6 +129,14 @@ input {
 
 /* Styling for application section where tasks populate */
 
+.filter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 158px;
+  justify-content: space-around;
+}
+
 .quality {
   display: inline;
   margin: 0;
@@ -220,6 +228,35 @@ button {
 .delete-button:hover {
   background-image: url(images/delete-hover.svg);
   background-size: cover;
+}
+
+.complete {
+  background-color: #ededed;
+  text-decoration-line: line-through;
+}
+
+.complete button {
+  background-color: #ededed;
+  color: #4d4dff;
+}
+
+.complete-button {
+  border: solid 1px;
+  font-family: 'Open Sans', sans-serif;
+  width: 142px;
+}
+
+.show-complete {
+  display:  block;
+  border: solid 1px;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 20px;
+  width: 202px;
+}
+
+.show-complete:disabled {
+  background-color: #939598;
+  cursor: default;
 }
 
 @media(max-width: 640px){
