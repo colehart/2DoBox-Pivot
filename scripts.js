@@ -1,5 +1,5 @@
 // ============================================================================
-//    Event Listeners
+//   Event Listeners
 // ============================================================================
 
 $(document).ready(prependLocalStorage);
@@ -7,6 +7,7 @@ $('.js-title-input').on('keyup', enableSave);
 $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
+// See prependCard() template literal, etc. for card-specific event listeners
 
 // ============================================================================
 //   Functions
@@ -60,10 +61,12 @@ function prependCard(cardInfo) {
   $('.js-bottom-box').prepend(listCard);
   $('.js-title').on('keydown', checkKey).on('blur', editCardText);
   $('.js-body').on('keydown', checkKey).on('blur', editCardText);
-}
+};
 
 // ============================================================================
-//   Making a New Card
+//   CRUD Functionality
+// ============================================================================
+//   Creating a New Card
 // ============================================================================
 
 function enableSave() {
@@ -91,7 +94,7 @@ function checkInputs(titleValue, bodyValue) {
 function alertEmpty() {
   alert('Please enter a title and description for your idea.');
   return;
-}
+};
 
 function newCard(titleValue, bodyValue) {
     var listItem = new ListItem(titleValue, bodyValue);
@@ -107,7 +110,7 @@ function resetForm() {
 };
 
 // ============================================================================
-//   Saving a Task to Local Storage
+//   Saving a Card to Local Storage
 // ============================================================================
 
 function addToLocalStorage(listItem) {
@@ -127,44 +130,25 @@ function initialCard(listItem) {
 };
 
 // ============================================================================
-//   Removing a Task from Local Storage
-// ============================================================================
-
-function deleteListItem(event) {
-  var card = $(event.target).parent();
-  var deleteId = card.prop('dataset').id;
-  card.remove();
-  removeFromCollection(deleteId);
-  if (!localStorage.length) resetFilter();
-};
-
-function removeFromCollection(deleteId) {
-  var currentCollection = parseLocalStorage();
-  var newCollection = currentCollection.filter(function(listItem) {
-     return listItem.id !== parseInt(deleteId);
-  });
-  !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
-};
-
-// ============================================================================
-//   Editing a Task and Updating Local Storage
+//   Editing a Card and Updating Local Storage
 // ============================================================================
 
 function checkKey(event) {
   if (trueEnter(event)) editCardText(event);
-}
+};
 
 function trueEnter(event) {
   if (event.which === 13 && event.shiftKey === false) {
     $(event.target).blur();
     return true;
-  }
-}
+  };
+};
 
 function editCardText(event) {
   if (!$(event.target).text()) {
     alertEmpty()
   } else {
+    $(event.target).text().trim();
     var card = $(event.target).closest('article');
     var cardId = card.prop('dataset').id;
     updateLocalStorage(card, cardId);
@@ -209,14 +193,36 @@ function updateLocalStorage(card, cardId) {
   var currentCollection = parseLocalStorage();
   currentCollection.forEach(function(listItem) {
     if (listItem.id === parseInt(cardId)) {
-      listItem.title = card.children('.js-title').text();
-      listItem.body = card.children('.js-body').text();
+      listItem.title = card.children('.js-title').text().trim();
+      listItem.body = card.children('.js-body').text().trim();
       listItem.importance = card.find('.js-quality').text();
     };
   });
   stringifyNewCollection(currentCollection);
 };
 
+// ============================================================================
+//   Deleting a Card from Local Storage
+// ============================================================================
+
+function deleteListItem(event) {
+  var card = $(event.target).parent();
+  var deleteId = card.prop('dataset').id;
+  card.remove();
+  removeFromCollection(deleteId);
+  if (!localStorage.length) resetFilter();
+};
+
+function removeFromCollection(deleteId) {
+  var currentCollection = parseLocalStorage();
+  var newCollection = currentCollection.filter(function(listItem) {
+     return listItem.id !== parseInt(deleteId);
+  });
+  !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
+};
+
+// ============================================================================
+//   Other Features
 // ============================================================================
 //   Filter Bar
 // ============================================================================
