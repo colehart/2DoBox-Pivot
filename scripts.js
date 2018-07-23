@@ -1,6 +1,6 @@
-// ======================
+// ============================================================================
 //    Event Listeners
-// ======================
+// ============================================================================
 
 $(document).ready(prependLocalStorage);
 $('.js-title-input').on('keyup', enableSave);
@@ -8,11 +8,11 @@ $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-input').on('keyup', filterCards);
 
-// ======================
-//       Functions
-// ===============================================
+// ============================================================================
+//   Functions
+// ============================================================================
 //   Constructor Functions and Prototype Methods
-// ===============================================
+// ============================================================================
 
 function ListItem(title, body) {
   this.id = Date.now();
@@ -21,21 +21,21 @@ function ListItem(title, body) {
   this.importance = 'Normal';
 }
 
-// ===============================
-//   Local Storage - get and set
-// ===============================
+// ============================================================================
+//   Local Storage - Get and Set
+// ============================================================================
 
 function stringifyNewCollection(newCollection) {
   localStorage.setItem('collection', JSON.stringify(newCollection));
-}
+};
 
 function parseLocalStorage() {
   return JSON.parse(localStorage.getItem('collection'));
 };
 
-// ======================
-//     On Page Load
-// ======================
+// ============================================================================
+//   On Page Load
+// ============================================================================
 
 function prependLocalStorage() {
   var currentCollection = parseLocalStorage();
@@ -49,22 +49,22 @@ function prependLocalStorage() {
 
 function prependCard(cardInfo) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-              <h2 class="title-of-card js-title" onkeydown="checkKey(event)" contenteditable>${cardInfo.title}</h2>
-              <button class="delete-button" onclick="deleteListItem(event)"></button>
-              <p class="body-of-card js-body" onkeydown="checkKey(event)" contenteditable>${cardInfo.body}</p>
-              <button class="upvote" onclick="getQuality(event)"></button>
-              <button class="downvote" onclick="getQuality(event)"></button>
-              <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
-              <hr>
-            </article>`
-    $('.js-bottom-box').prepend(listCard);
-    $('h2').on('blur', editCardText);
-    $('p').on('blur', editCardText);
+    <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
+    <button class="delete-button" onclick="deleteListItem(event)"></button>
+    <p class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
+    <button class="upvote" onclick="getQuality(event)"></button>
+    <button class="downvote" onclick="getQuality(event)"></button>
+    <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
+    <hr>
+  </article>`
+  $('.js-bottom-box').prepend(listCard);
+  $('.js-title').on('keydown', checkKey).on('blur', editCardText);
+  $('.js-body').on('keydown', checkKey).on('blur', editCardText);
 }
 
-// ======================
+// ============================================================================
 //   Making a New Card
-// ======================
+// ============================================================================
 
 function enableSave() {
   var titleInput = $('.js-title-input').val().trim();
@@ -106,9 +106,9 @@ function resetForm() {
   $('.js-save-btn').prop('disabled', true);
 };
 
-// ================================
-//  Saving a Task to Local Storage
-// ================================
+// ============================================================================
+//   Saving a Task to Local Storage
+// ============================================================================
 
 function addToLocalStorage(listItem) {
   if (!localStorage.length) {
@@ -126,9 +126,9 @@ function initialCard(listItem) {
   stringifyNewCollection(firstCollection);
 };
 
-// ====================================
-//  Removing a Task from Local Storage
-// ====================================
+// ============================================================================
+//   Removing a Task from Local Storage
+// ============================================================================
 
 function deleteListItem(event) {
   var card = $(event.target).parent();
@@ -146,9 +146,9 @@ function removeFromCollection(deleteId) {
   !newCollection.length ? localStorage.clear() : stringifyNewCollection(newCollection);
 };
 
-// ===========================================
-//  Editing a Task and Updating Local Storage
-// ===========================================
+// ============================================================================
+//   Editing a Task and Updating Local Storage
+// ============================================================================
 
 function checkKey(event) {
   if (trueEnter(event)) editCardText(event);
@@ -217,9 +217,9 @@ function updateLocalStorage(card, cardId) {
   stringifyNewCollection(currentCollection);
 };
 
-// =========================
-// Filter Bar functionality
-// =========================
+// ============================================================================
+//   Filter Bar
+// ============================================================================
 
 function enableFilter() {
   var isDisabled = (!localStorage.length);
@@ -240,35 +240,3 @@ function resetFilter() {
   $('.js-filter-input').val('');
   $('.js-filter-input').prop('disabled', true);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
