@@ -59,8 +59,7 @@ function prependCard(cardInfo) {
     <hr>
   </article>`
   $('.js-bottom-box').prepend(listCard);
-  $('.js-title').on('keydown', checkKey).on('blur', editCardText);
-  $('.js-body').on('keydown', checkKey).on('blur', editCardText);
+  $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
 // ============================================================================
