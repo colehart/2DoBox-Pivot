@@ -84,17 +84,11 @@ function prependCard(cardInfo, completed) {
     <button class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Completed Task</button>
     <hr>
   </article>`
-  setCompClass(cardInfo, completed, cardID)
   $('.js-bottom-box').prepend(listCard);
-  $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
+  if (completed) {
+    $('.card-container').first().toggleClass('complete')
 };
-
-function setCompClass(cardInfo, completed, cardID) {
-  var completedCard = $('.card-container').prop('dataset').id;
-  console.log(cardInfo, completed, cardID)
-  // if (completed === true && $('.card-container')) {
-  //   $('.card-container').toggleClass('.complete');
-  // };
+  $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
 // ============================================================================
