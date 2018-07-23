@@ -4,6 +4,7 @@ $('.js-body-input').on('keyup', enableSave);
 $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-btn').on('click', toggleFilterButton);
 $('.js-filter-input').on('keyup', filterCards);
+$('.js-show-complete').on('click', showComplete);
 // See prependCard() template literal, etc. for card-specific event listeners
 
 // ============================================================================
@@ -15,6 +16,7 @@ function ListItem(title, body) {
   this.title = title;
   this.body = body;
   this.importance = 'Normal';
+  this.complete = null;
 }
 
 // ============================================================================
@@ -35,15 +37,23 @@ function parseLocalStorage() {
 
 function prependLocalStorage() {
   var currentCollection = parseLocalStorage();
-  if (currentCollection) {
+  var sortedCollection = currentCollection.filter(function(listItem) {
+    return listItem.complete === null
+  });
+  printStorage(sortedCollection);
+};
+
+function printStorage(collection) {
+  if (collection) {
     enableFilter();
-    currentCollection.forEach(function(listItemInstance) {
+    collection.forEach(function(listItemInstance) {
       prependCard(listItemInstance);
     });
   };
 };
 
-function prependCard(cardInfo) {
+function prependCard(cardInfo, completed) {
+  var cardID = cardInfo.id;
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
     <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
     <button class="delete-button" onclick="deleteListItem(event)"></button>
@@ -51,9 +61,13 @@ function prependCard(cardInfo) {
     <button class="upvote" onclick="getCardQuality(event)"></button>
     <button class="downvote" onclick="getCardQuality(event)"></button>
     <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
+    <button class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Completed Task</button>
     <hr>
   </article>`
   $('.js-bottom-box').prepend(listCard);
+  if (completed) {
+    $('.card-container').first().toggleClass('complete')
+};
   $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
@@ -285,3 +299,64 @@ function cardFilter(cards, buttonQualities) {
   });
 };
 
+// =============================================================================
+//    Marking a Task as Complete
+// =============================================================================
+
+function toggleComplete(event) {
+  var currentCollection = parseLocalStorage();
+  var task = $(event.target).parent();
+  var taskID = task.prop('dataset').id
+  task.toggleClass('complete');
+  setComplete(event, task, taskID, currentCollection)
+};
+
+function setComplete(event, task, taskID, currentCollection) {
+  if (task.prop('className') === 'card-container complete') {
+     storeCompleteProp(taskID, currentCollection); 
+    } else if (task.prop('className') === 'card-container') {
+     storeIncomplete(taskID, currentCollection); 
+    };
+  };
+
+function storeCompleteProp(taskID, currentCollection) {
+  currentCollection.forEach(function(listItem) {
+    if (listItem.id === parseInt(taskID)) {
+      listItem.complete = true;
+    };
+    stringifyNewCollection(currentCollection);
+  });
+};
+
+function storeIncomplete(taskID, currentCollection) {
+  currentCollection.forEach(function(listItem) {
+    if (listItem.id === parseInt(taskID)) {
+      listItem.complete = null;
+    };
+    stringifyNewCollection(currentCollection);
+  });
+};
+
+// ==========================================
+//   Show Completed Tasks
+// ==========================================
+
+function showComplete(event) {
+  event.preventDefault();
+  var currentCollection = parseLocalStorage();
+  prependComplete(currentCollection);
+  disableCompleteTaskBtn(event);
+};
+
+function prependComplete(collection) {
+  var completedTasks = collection.filter(function(listItem) {
+   return listItem.complete === true;
+  });
+  completedTasks.forEach(function(listItem) {
+    prependCard(listItem, true);
+  });
+};
+
+function disableCompleteTaskBtn(event) {
+  $('.js-show-complete').prop('disabled', true)
+};

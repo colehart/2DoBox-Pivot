@@ -257,6 +257,35 @@ article button {
   background-size: cover;
 }
 
+.complete {
+  background-color: #ededed;
+  text-decoration-line: line-through;
+}
+
+.complete button {
+  background-color: #ededed;
+  color: #4d4dff;
+}
+
+.complete-button {
+  border: solid 1px;
+  font-family: 'Open Sans', sans-serif;
+  width: 142px;
+}
+
+.show-complete {
+  display:  block;
+  border: solid 1px;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 20px;
+  width: 202px;
+}
+
+.show-complete:disabled {
+  background-color: #939598;
+  cursor: default;
+}
+
 @media(max-width: 640px){
 
   .card-container {
