@@ -110,10 +110,6 @@ input {
   outline: none;
 }
 
-.save-btn[value='save'] {
-  text-align: center;
-}
-
 .save-btn:hover {
   background-color: #0000b3;
 }
@@ -124,30 +120,66 @@ input {
 
 .save-btn:disabled {
   background-color: #939598;
+  color: #ffffff;
   cursor: default;
 }
 
 /* Styling for application section where tasks populate */
 
 .filter {
-  align-items: center;
+  width: 100%;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  height: 158px;
   justify-content: space-around;
+  align-items: center;
 }
 
-.quality {
-  display: inline;
+
+h3 {
+  color: #6d6e71;
+  font-family: 'Roboto Slab', serif;
+  font-size: 125%;
+}
+
+.filter-buttons {
+  width: 45%;
+  display: flex;
+  justify-content: space-around;
   margin: 0;
-  width: 250px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #cee6ff;
+  color: #6d6e71;
+}
+
+button:hover {
+  background-color: #0000b3;
+  color: #ffffff;
+}
+
+button:disabled {
+  background-color: buttonface;
+  color: graytext;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.active-filter {
+  background-color: #4d4dff;
+  color: #ffffff;
 }
 
 .filter-input {
   height: 30px;
-  margin-top: 50px;
   width: 45%;
 }
+
+/* Styling for application section where tasks populate */
 
 .card-container {
   width: 45%;
@@ -172,15 +204,16 @@ h2 {
 p {
   color: #939598;
   font-family: 'Open Sans', sans-serif;
-}
-
-.body-of-card {
-  color: #939598;
-  font-family: 'Open Sans', sans-serif;
   font-size: 100%;
 }
 
-button {
+.quality {
+  display: inline;
+  margin: 0;
+  width: 250px;
+}
+
+article button {
   border: none;
   background-color: transparent;
   height: 28px;
@@ -189,8 +222,6 @@ button {
 }
 
 .upvote {
- /* height: 20px;
-  width: 20px;*/
   margin-right: 5px;
   background-image: url(images/upvote.svg);
   background-size: cover;
@@ -203,8 +234,6 @@ button {
 }
 
 .downvote {
-  /*height: 20px;
-  width: 20px;*/
   margin-right: 5px;
   background-image: url(images/downvote.svg);
   background-size: cover;
@@ -216,8 +245,6 @@ button {
 }
 
 .delete-button {
-  /*height: 20px;
-  width: 20px;*/
   position: absolute;
   top: 15px;
   right: 0px;
