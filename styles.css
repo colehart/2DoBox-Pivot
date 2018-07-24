@@ -294,6 +294,12 @@ article button:hover {
   cursor: default;
 }
 
+.show-more {
+  align-self: center;
+  margin: 30px 0;
+  width: 45%;
+}
+
 @media(max-width: 640px){
 
   .card-container {

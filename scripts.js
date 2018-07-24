@@ -5,6 +5,7 @@ $('.js-save-btn').on('click', saveInputValues);
 $('.js-filter-btn').on('click', toggleFilterButton);
 $('.js-filter-input').on('keyup', filterCards);
 $('.js-show-complete').on('click', showComplete);
+$('.js-show-more').on('click', showMore);
 // See prependCard() template literal, etc. for card-specific event listeners
 
 // ============================================================================
@@ -55,7 +56,6 @@ function printStorage(collection) {
 };
 
 function prependCard(cardInfo, completed) {
-  var cardID = cardInfo.id;
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
     <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
     <button class="delete-button" onclick="deleteListItem(event)"></button>
@@ -67,8 +67,14 @@ function prependCard(cardInfo, completed) {
     <hr>
   </article>`
   $('.js-bottom-box').prepend(listCard);
+  
+  if ($('article').length > 10) {
+    $('article').slice(11).hide();
+    $('.js-show-more').prop('disabled', '');
+  };
+  
   if (completed) {
-    $('.card-container').first().toggleClass('complete')
+    $('.card-container').first().toggleClass('complete');
   };
   $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
@@ -219,6 +225,9 @@ function deleteListItem(event) {
   card.remove();
   removeFromCollection(deleteId);
   if (!localStorage.length) resetFilter();
+  if ($('article').length < 11) {
+    $('.js-show-more').prop('disabled', true);
+  };
 };
 
 function removeFromCollection(deleteId) {
@@ -365,3 +374,14 @@ function prependComplete(collection) {
 function disableCompleteTaskBtn(event) {
   $('.js-show-complete').prop('disabled', true)
 };
+
+// ============================================================================
+//   Show More Tasks
+// ============================================================================
+
+function showMore() {
+  $('article').slice(11).show();
+  $('.js-show-more').prop('disabled', true);
+};
+
+
