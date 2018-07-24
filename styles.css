@@ -283,15 +283,8 @@ article button:hover {
 
 .show-complete {
   display:  block;
-  border: solid 1px;
-  font-family: 'Open Sans', sans-serif;
   margin-bottom: 20px;
-  width: 202px;
-}
-
-.show-complete:disabled {
-  background-color: #939598;
-  cursor: default;
+  width: 45%;
 }
 
 .show-more {

@@ -43,6 +43,13 @@ function prependLocalStorage() {
       return listItem.complete === null
     });
     printStorage(sortedCollection);
+    checkForCompleted(currentCollection, sortedCollection);
+  };
+};
+
+function checkForCompleted(collection, sorted) {
+  if (collection.length !== sorted.length) {
+    $('.js-show-complete').prop('disabled', '');
   };
 };
 
@@ -66,6 +73,7 @@ function prependCard(cardInfo, completed) {
     <button class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Completed Task</button>
     <hr>
   </article>`
+  
   $('.js-bottom-box').prepend(listCard);
   
   if ($('article').length > 10) {
@@ -76,6 +84,7 @@ function prependCard(cardInfo, completed) {
   if (completed) {
     $('.card-container').first().toggleClass('complete');
   };
+
   $('.js-title, .js-body').on('keydown', checkKey).on('blur', editCardText);
 };
 
@@ -357,7 +366,7 @@ function showComplete(event) {
   event.preventDefault();
   var currentCollection = parseLocalStorage();
   prependComplete(currentCollection);
-  disableCompleteTaskBtn(event);
+  disableCompleteTaskBtn();
 };
 
 function prependComplete(collection) {
@@ -371,7 +380,7 @@ function prependComplete(collection) {
   };
 };
 
-function disableCompleteTaskBtn(event) {
+function disableCompleteTaskBtn() {
   $('.js-show-complete').prop('disabled', true)
 };
 
