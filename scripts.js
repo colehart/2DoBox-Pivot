@@ -165,11 +165,10 @@ function trueEnter(event) {
 function editCardText(event) {
   if (!$(event.target).text()) {
     alert('Please refresh the page and enter a title and a description for your idea.');
-    return;
+    // return;
   } else {
     var card = $(event.target).closest('article');
     var cardId = card.prop('dataset').id;
-    $(event.target).text().trim();
     updateLocalStorage(card, cardId);
   };
 };
@@ -213,8 +212,8 @@ function updateLocalStorage(card, cardId) {
   var currentCollection = parseLocalStorage();
   currentCollection.forEach(function(listItem) {
     if (listItem.id === parseInt(cardId)) {
-      listItem.title = card.find('.js-title').text().trim();
-      listItem.body = card.children('.js-body').text().trim();
+      listItem.title = card.find('.js-title').text();
+      listItem.body = card.children('.js-body').text();
       listItem.importance = card.find('.js-quality').text();
     };
   });
