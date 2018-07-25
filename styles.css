@@ -289,10 +289,42 @@ article button:hover {
   width: 45%;
 }
 
+@media screen and (max-width: 970px) {
+
+.filter {
+  height: 350px;
+}
+
+.filter-buttons {
+  flex-wrap: wrap;
+  height: 92px;
+  justify-content: space-between;
+}
+
+.filter-btn {
+   margin: auto;
+}
+
+}
+
 @media(max-width: 640px){
 
   .card-container {
     width: 85%;
+  }
+}
+
+@media screen and (max-width: 499px) {
+
+  .filter-buttons {
+    height: 128px;
+  }
+}
+
+@media screen and (max-width: 455px) {
+
+  .show-complete {
+    height: 48px;
   }
 }
 
