@@ -13,10 +13,10 @@ body {
 
 input {
   box-sizing: border-box;
-  margin: auto;
-  width: 45%;
-  padding-left: 0.5rem;
   font-family: 'Open Sans', sans-serif;
+  margin: auto;
+  padding-left: 0.5rem;
+  width: 45%;
 }
 
 span {
@@ -24,22 +24,22 @@ span {
 }
 
 .body-input {
+  bottom: 7px;
   height: 30px;
   position: relative;
-  bottom: 7px;
 }
 
 .create-card {
-  height: 160px;
+  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 160px;
   justify-content: space-around;
-  align-items: center;
 }
 
 .logo {
-  display: inline-block;
   color: #0068ad;
+  display: inline-block;
 }
 
 .save-btn {
@@ -52,21 +52,21 @@ span {
 }
 
 .top-box {
+  background-color: #def2ff;
   height: 300px;
   margin: 0;
-  background-color: #def2ff;
   text-align: center;
 }
 
 /* Styling for filter section where user searches through created tasks */
 
 button {
-  height: 35px;
-  width: 45.3%;
-  padding: 5px 10px;
   background-color: #def2ff;
   color: #6d6e71;
+  height: 35px;
   letter-spacing: 0.5px;
+  padding: 5px 10px;
+  width: 45.3%;
 }
 
 button:hover {
@@ -94,13 +94,13 @@ main {
 }
 
 .filter {
-  width: 100%;
-  margin: 30px 0;
-  height: 200px;
+  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 200px;
   justify-content: space-between;
-  align-items: center;
+  margin: 30px 0;
+  width: 100%;
 }
 
 .filter-btn {
@@ -108,28 +108,28 @@ main {
 }
 
 .filter-buttons {
-  width: 45%;
   display: flex;
   justify-content: space-between;
   margin: 0;
+  width: 45%;
 }
 
 .filter-input {
+  border: 1px solid lightgray;
   height: 30px;
   margin: 0;
-  border: 1px solid lightgray;
 }
 
 .filter-instructions {
-  margin: 0;
   color: #6d6e71;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.15rem;
+  margin: 0;
 }
 
 .show-complete {
-  margin-top: 15px;
   display:  block;
+  margin-top: 15px;
   width: 45%;
 }
 
@@ -137,36 +137,37 @@ main {
 
 article button,
 article button:hover {
-  height: 28px;
-  width: 28px;
-  border: 0;
   background-color: transparent;
+  border: 0;
+  height: 28px;
   outline: none;
+  width: 28px;
 }
 
 p {
   color: #939598;
   font-family: 'Open Sans', sans-serif;
   font-size: 100%;
+  line-height: 1.5;
 }
 
 .card-container {
-  width: 45%;
+  border-bottom: 2px solid #d1d3d4;
   margin: 0 auto;
   padding: 8px 5px;
-  border-bottom: 2px solid #d1d3d4;
+  width: 45%;
 }
 
 .card-footer {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .card-header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .complete {
@@ -175,8 +176,8 @@ p {
 }
 
 .complete a {
-  margin-right: 4px;
   color: #EF4136;
+  margin-right: 4px;
 }
 
 .complete a:hover {
@@ -194,8 +195,8 @@ p {
 }
 
 .complete-button {
-  padding-right: 0;
   color: #6d6e71;
+  padding-right: 0;
   text-align: right;
 }
 
@@ -225,8 +226,8 @@ p {
 }
 
 .importance-voting {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .quality {
@@ -246,9 +247,9 @@ p {
 }
 
 .upvote {
-  margin-right: 10px;
   background-image: url(images/upvote.svg);
   background-size: cover;
+  margin-right: 10px;
 }
 
 .upvote:hover {
