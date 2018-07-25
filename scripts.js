@@ -63,7 +63,7 @@ function printStorage(collection) {
 };
 
 function prependCard(cardInfo, completed) {
-  var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
+  var listCard = `<article aria-label="To do list task" class="card-container" data-id=${cardInfo.id}>
     <div class="card-header">
       <h2 aria-label="Click to edit your task title" class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
       <button aria-label="Click to delete task" class="delete-button" onclick="deleteListItem(event)"></button>

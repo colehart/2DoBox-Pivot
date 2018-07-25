@@ -36,15 +36,15 @@
         </form>
       </header>
       <main role="main">
-        <section class='filter' role='search'>
+        <section role="search" class="filter">
           <input
             aria-label="Filter through created tasks here"
             class="filter-input js-filter-input"
             type="text"
             placeholder="Filter"
             disabled>
-          <h3>Filter by Task Importance</h3>
-          <div class='filter-buttons'>
+          <h2 class="filter-instructions">Filter by Task Importance</h2>
+          <div class="filter-buttons">
             <button
               aria-label="Show cards with no importance"
               class="filter-btn js-filter-btn"
@@ -72,8 +72,8 @@
               disabled>critical</button>
           </div>
           <button
-            class="show-complete js-show-complete"
             aria-label="Click to show completed tasks"
+            class="show-complete js-show-complete"
             disabled>Show Completed TODOs</button>
         </section>
         <section role="application" class="bottom-box js-bottom-box">
