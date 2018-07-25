@@ -165,7 +165,7 @@ function trueEnter(event) {
 function editCardText(event) {
   if (!$(event.target).text()) {
     alert('Please refresh the page and enter a title and a description for your idea.');
-    // return;
+    return;
   } else {
     var card = $(event.target).closest('article');
     var cardId = card.prop('dataset').id;
@@ -213,7 +213,7 @@ function updateLocalStorage(card, cardId) {
   currentCollection.forEach(function(listItem) {
     if (listItem.id === parseInt(cardId)) {
       listItem.title = card.find('.js-title').text();
-      listItem.body = card.children('.js-body').text();
+      listItem.body = card.children('.js-body').html();
       listItem.importance = card.find('.js-quality').text();
     };
   });
