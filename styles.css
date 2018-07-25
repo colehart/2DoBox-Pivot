@@ -177,24 +177,32 @@ button:focus {
 
 .card-container {
   width: 45%;
-  margin: auto;
-  padding: 16px 0;
-  position: relative;
+  margin: 0 auto;
+  padding: 8px 5px;
   border-bottom: 2px solid #d1d3d4;
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title-of-card {
-  display: inline-block;
   color: #6D6E71;
   font-family: 'Roboto Slab', serif;
   font-size: 140%;
 }
 
 h2 {
-  display: inline-block;
   color: #6d6e71;
   font-family: 'Roboto Slab', serif;
-  font-size: 150%;
 }
 
 p {
@@ -203,10 +211,13 @@ p {
   font-size: 100%;
 }
 
+.importance-voting {
+  display: flex;
+  align-items: center;
+}
+
 .quality {
-  display: inline;
-  margin: 0 16px 100px 8px;
-  width: 250px;
+  margin-left: 8px;
 }
 
 article button,
@@ -219,7 +230,7 @@ article button:hover {
 }
 
 .upvote {
-  margin-right: 5px;
+  margin-right: 10px;
   background-image: url(images/upvote.svg);
   background-size: cover;
 }
@@ -241,9 +252,6 @@ article button:hover {
 }
 
 .delete-button {
-  position: absolute;
-  top: 15px;
-  right: 0px;
   background-image: url(images/delete.svg);
   background-size: cover;
 }
@@ -258,12 +266,17 @@ article button:hover {
   font-style: italic;
 }
 
+.complete h2 {
+  margin-left: 4px;
+}
 
 .complete p {
+  margin-left: 4px;
   text-decoration: line-through;
 }
 
 .complete a {
+  margin-right: 4px;
   color: #EF4136;
 }
 
@@ -291,19 +304,19 @@ article button:hover {
 
 @media screen and (max-width: 970px) {
 
-.filter {
-  height: 350px;
-}
+  .filter {
+    height: 350px;
+  }
 
-.filter-buttons {
-  flex-wrap: wrap;
-  height: 92px;
-  justify-content: space-between;
-}
+  .filter-buttons {
+    flex-wrap: wrap;
+    height: 92px;
+    justify-content: space-between;
+  }
 
-.filter-btn {
-   margin: auto;
-}
+  .filter-btn {
+     margin: auto;
+  }
 
 }
 

@@ -64,13 +64,19 @@ function printStorage(collection) {
 
 function prependCard(cardInfo, completed) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
-    <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
-    <button class="delete-button" onclick="deleteListItem(event)"></button>
+    <div class="card-header">
+      <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
+      <button class="delete-button" onclick="deleteListItem(event)"></button>
+    </div>
     <p class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
-    <button class="upvote" onclick="getCardQuality(event)"></button>
-    <button class="downvote" onclick="getCardQuality(event)"></button>
-    <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
-    <a class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Complete</a>
+    <div class="card-footer">
+      <div class="importance-voting">
+        <button class="upvote" onclick="getCardQuality(event)"></button>
+        <button class="downvote" onclick="getCardQuality(event)"></button>
+        <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
+      </div>
+      <a class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Complete</a>
+    </div>
   </article>`
 
   $('.js-bottom-box').prepend(listCard);
@@ -102,21 +108,8 @@ function saveInputValues(event) {
   event.preventDefault();
   var titleValue = $('.js-title-input').val().trim();
   var bodyValue = $('.js-body-input').val().trim();
-  checkInputs(titleValue, bodyValue);
+  newCard(titleValue, bodyValue);
 }
-
-function checkInputs(titleValue, bodyValue) {
-  if (!titleValue || !bodyValue) {
-    alertEmpty();
-  } else {
-    newCard(titleValue, bodyValue);
-  };
-};
-
-function alertEmpty() {
-  alert('Please enter a title and description for your idea.');
-  return;
-};
 
 function newCard(titleValue, bodyValue) {
     var listItem = new ListItem(titleValue, bodyValue);
@@ -162,13 +155,13 @@ function checkKey(event) {
 function trueEnter(event) {
   if (event.which === 13 && event.shiftKey === false) {
     $(event.target).blur();
-    return true;
   };
 };
 
 function editCardText(event) {
   if (!$(event.target).text()) {
-    alertEmpty()
+    alert('Please refresh the page and enter a title and description for your idea.');
+    return;
   } else {
     $(event.target).text().trim();
     var card = $(event.target).closest('article');
@@ -215,7 +208,7 @@ function updateLocalStorage(card, cardId) {
   var currentCollection = parseLocalStorage();
   currentCollection.forEach(function(listItem) {
     if (listItem.id === parseInt(cardId)) {
-      listItem.title = card.children('.js-title').text().trim();
+      listItem.title = card.find('.js-title').text().trim();
       listItem.body = card.children('.js-body').text().trim();
       listItem.importance = card.find('.js-quality').text();
     };
@@ -228,7 +221,7 @@ function updateLocalStorage(card, cardId) {
 // ============================================================================
 
 function deleteListItem(event) {
-  var card = $(event.target).parent();
+  var card = $(event.target).closest('article');
   var deleteId = card.prop('dataset').id;
   card.remove();
   removeFromCollection(deleteId);
@@ -325,20 +318,10 @@ function cardFilter(cards, buttonQualities) {
 
 function toggleComplete(event) {
   var currentCollection = parseLocalStorage();
-  var task = $(event.target).parent();
+  var task = $(event.target).closest('article');
   var taskID = task.prop('dataset').id
   task.toggleClass('complete');
-  changeCompleteText(event, task);
   setComplete(event, task, taskID, currentCollection)
-};
-
-function changeCompleteText(event, task) {
-    // debugger;
-  if (task.hasClass('complete')) {
-    $(event.target).text('Completed');
-  } else {
-    $(event.target).text('Complete');
-  };
 };
 
 function setComplete(event, task, taskID, currentCollection) {
@@ -401,5 +384,3 @@ function showMore() {
   $('article').slice(10).show();
   $('.js-show-more').prop('disabled', true);
 };
-
-
