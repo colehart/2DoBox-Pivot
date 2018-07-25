@@ -268,7 +268,7 @@ function filterCards() {
 
 function resetFilter() {
   $('.js-filter-input').val('');
-  $('.js-filter-input').prop('disabled', true);
+  $('.js-filter-input, .js-filter-btn').prop('disabled', true);
 };
 
 // ============================================================================
