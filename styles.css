@@ -38,11 +38,11 @@ span {
 
 .logo {
   display: inline-block;
-  color: #4d4dff;
+  color: #0068ad;
 }
 
 .save-btn {
-  background-color: #4d4dff;
+  background-color: #0068ad;
   color: #fff;
 }
 
@@ -53,7 +53,7 @@ span {
 .top-box {
   height: 300px;
   margin: 0;
-  background-color: #cee6ff;
+  background-color: #def2ff;
   text-align: center;
 }
 
@@ -63,12 +63,12 @@ button {
   height: 35px;
   width: 45.3%;
   padding: 5px 10px;
-  background-color: #cee6ff;
+  background-color: #def2ff;
   color: #6d6e71;
 }
 
 button:hover {
-  background-color: #0000b3;
+  background-color: #003a61;
   color: #ffffff;
 }
 
@@ -81,19 +81,13 @@ button:focus {
   outline: 0;
 }
 
-h3 {
-  color: #6d6e71;
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-}
-
 main {
   display: flex;
   flex-direction: column;
 }
 
 .active-filter {
-  background-color: #4d4dff;
+  background-color: #0068ad;
   color: #ffffff;
 }
 
@@ -122,6 +116,13 @@ main {
   height: 30px;
   margin: 0;
   border: 1px solid lightgray;
+}
+
+.filter-instructions {
+  margin: 0;
+  color: #6d6e71;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.25rem;
 }
 
 .show-complete {
