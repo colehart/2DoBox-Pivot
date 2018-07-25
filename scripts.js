@@ -38,7 +38,7 @@ function parseLocalStorage() {
 
 function prependLocalStorage() {
   var currentCollection = parseLocalStorage();
-  if (currentCollection.length) {
+  if (currentCollection) {
     var sortedCollection = currentCollection.filter(function(listItem) {
       return listItem.complete === null
     });
@@ -73,14 +73,14 @@ function prependCard(cardInfo, completed) {
     <button class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Completed Task</button>
     <hr>
   </article>`
-  
+
   $('.js-bottom-box').prepend(listCard);
-  
+
   if ($('article').length > 10) {
     $('article').slice(11).hide();
     $('.js-show-more').prop('disabled', '');
   };
-  
+
   if (completed) {
     $('.card-container').first().toggleClass('complete');
   };
