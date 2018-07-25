@@ -77,7 +77,7 @@ function prependCard(cardInfo, completed) {
   $('.js-bottom-box').prepend(listCard);
 
   if ($('article').length > 10) {
-    $('article').slice(11).hide();
+    $('article').slice(10).hide();
     $('.js-show-more').prop('disabled', '');
   };
 
@@ -389,7 +389,7 @@ function disableCompleteTaskBtn() {
 // ============================================================================
 
 function showMore() {
-  $('article').slice(11).show();
+  $('article').slice(10).show();
   $('.js-show-more').prop('disabled', true);
 };
 
