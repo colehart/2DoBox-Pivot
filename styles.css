@@ -296,6 +296,11 @@ article button:hover {
   color: #39B54A;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 .show-more {
   align-self: center;
   margin: 30px 0;

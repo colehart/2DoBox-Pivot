@@ -11,10 +11,13 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700">
   </head>
   <body>
-    <main class="container-box">
-      <header role="banner" class="top-box">
+    <div class="container-box">
+      <header class="top-box" role="banner">
         <h1 class="logo">2Do<span>Box</span></h1>
-        <form class="create-card js-create-card" aria-label="Create a To Do List task">
+        <form
+          aria-label="Create a To Do List task"
+          role="form"
+          class="create-card js-create-card">
           <input
             aria-label="Create your task title"
             class="title-input js-title-input"
@@ -26,56 +29,59 @@
             type="text"
             placeholder="Task">
           <button
+            aria-label="Click to save your Task"
             class="save-btn js-save-btn"
             type="submit"
             disabled>save</button>
         </form>
       </header>
-      <section class='filter' role='search'>
-        <input
-          aria-label="Filter through created tasks here"
-          class="filter-input js-filter-input"
-          type="text"
-          placeholder="Filter"
-          disabled>
-        <h3>Filter by Task Importance</h3>
-        <div class='filter-buttons'>
+      <main role="main">
+        <section class='filter' role='search'>
+          <input
+            aria-label="Filter through created tasks here"
+            class="filter-input js-filter-input"
+            type="text"
+            placeholder="Filter"
+            disabled>
+          <h3>Filter by Task Importance</h3>
+          <div class='filter-buttons'>
+            <button
+              aria-label="Show cards with no importance"
+              class="filter-btn js-filter-btn"
+              type="button"
+              disabled>none</button>
+            <button
+              aria-label="Show cards with low importance"
+              class="filter-btn js-filter-btn"
+              type="button"
+              disabled>low</button>
+            <button
+              aria-label="Show cards with normal importance"
+              class="filter-btn js-filter-btn"
+              type="button"
+              disabled>normal</button>
+            <button
+              aria-label="Show cards with high importance"
+              class="filter-btn js-filter-btn"
+              type="button"
+              disabled>high</button>
+            <button
+              aria-label="Show cards with critical importance"
+              class="filter-btn js-filter-btn"
+              type="button"
+              disabled>critical</button>
+          </div>
           <button
-            aria-label="Show cards with no importance"
-            class="filter-btn js-filter-btn"
-            type="button"
-            disabled>none</button>
-          <button
-            aria-label="Show cards with low importance"
-            class="filter-btn js-filter-btn"
-            type="button"
-            disabled>low</button>
-          <button
-            aria-label="Show cards with normal importance"
-            class="filter-btn js-filter-btn"
-            type="button"
-            disabled>normal</button>
-          <button
-            aria-label="Show cards with high importance"
-            class="filter-btn js-filter-btn"
-            type="button"
-            disabled>high</button>
-          <button
-            aria-label="Show cards with critical importance"
-            class="filter-btn js-filter-btn"
-            type="button"
-            disabled>critical</button>
-        </div>
-        <button
-          class="show-complete js-show-complete"
-          aria-label="Click to show completed tasks"
-          disabled>Show Completed TODOs</button>
-      </section>
-      <section role="application" class="bottom-box js-bottom-box">
-        <!-- js prepends new cards here -->
-      </section>
-      <button class="show-more js-show-more" disabled>Show More TODOs...</button>
-    </main>
+            class="show-complete js-show-complete"
+            aria-label="Click to show completed tasks"
+            disabled>Show Completed TODOs</button>
+        </section>
+        <section role="application" class="bottom-box js-bottom-box">
+          <!-- js prepends new cards here -->
+        </section>
+        <button class="show-more js-show-more" disabled>Show More TODOs...</button>
+      </main>
+    </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="

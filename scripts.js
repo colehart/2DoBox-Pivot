@@ -65,17 +65,17 @@ function printStorage(collection) {
 function prependCard(cardInfo, completed) {
   var listCard = `<article aria-label="To do list task" data-id=${cardInfo.id} class="card-container">
     <div class="card-header">
-      <h2 class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
-      <button class="delete-button" onclick="deleteListItem(event)"></button>
+      <h2 aria-label="Click to edit your task title" class="title-of-card js-title" contenteditable>${cardInfo.title}</h2>
+      <button aria-label="Click to delete task" class="delete-button" onclick="deleteListItem(event)"></button>
     </div>
-    <p class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
+    <p aria-label="Click to edit your task description" class="body-of-card js-body" contenteditable>${cardInfo.body}</p>
     <div class="card-footer">
       <div class="importance-voting">
-        <button class="upvote" onclick="getCardQuality(event)"></button>
-        <button class="downvote" onclick="getCardQuality(event)"></button>
-        <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
+        <button aria-label="Click to increase task importance" class="upvote" onclick="getCardQuality(event)"></button>
+        <button aria-label="Click to decrease task importance" class="downvote" onclick="getCardQuality(event)"></button>
+        <p aria-label="Task importance level" class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
       </div>
-      <a class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Complete</a>
+      <a aria-label="Mark task complete" class="complete-button js-complete-button" onclick="toggleComplete(event)">Complete</a>
     </div>
   </article>`
 
