@@ -49,7 +49,7 @@ body {
 
 /* Styling for header section where user creates task */
 
-.text-and-save {
+.create-card {
   display: flex;
   flex-direction: column;
   height: 160px;
@@ -141,12 +141,11 @@ h3 {
 }
 
 button {
+  height: 35px;
+  width: 45.3%;
   padding: 5px 10px;
   background-color: #cee6ff;
   color: #6d6e71;
-  height: 48px;
-  width: 45.3%;
-  height: 35px;
 }
 
 button:hover {
@@ -179,7 +178,9 @@ button:focus {
 .card-container {
   width: 45%;
   margin: auto;
+  padding: 16px 0;
   position: relative;
+  border-bottom: 2px solid #d1d3d4;
 }
 
 .title-of-card {
@@ -210,11 +211,11 @@ p {
 
 article button,
 article button:hover {
-  border: none;
-  background-color: transparent;
   height: 28px;
-  outline: none;
   width: 28px;
+  border: 0;
+  background-color: transparent;
+  outline: none;
 }
 
 .upvote {
@@ -224,7 +225,6 @@ article button:hover {
 }
 
 .upvote:hover {
-  background-color: transparent;
   background-image: url(images/upvote-hover.svg);
   background-size: cover;
 }
@@ -255,24 +255,32 @@ article button:hover {
 
 .complete {
   background-color: #ededed;
-  text-decoration-line: line-through;
+  font-style: italic;
 }
 
-.complete button {
-  background-color: #ededed;
-  color: #4d4dff;
+
+.complete p {
+  text-decoration: line-through;
+}
+
+.complete a {
+  color: #EF4136;
+}
+
+.complete a:hover {
+  color: #EF4136;
+  text-decoration: underline;
+
 }
 
 .complete-button {
-  border: solid 1px;
-  font-family: 'Open Sans', sans-serif;
-  width: 142px;
+  padding-right: 0;
+  color: #6d6e71;
+  text-align: right;
 }
 
 .complete-button:hover {
-  width: 142px;
-  background-color: #0000b3;
-  color: #ffffff;
+  color: #39B54A;
 }
 
 .show-more {
