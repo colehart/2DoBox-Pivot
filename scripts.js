@@ -70,14 +70,13 @@ function prependCard(cardInfo, completed) {
     <button class="upvote" onclick="getCardQuality(event)"></button>
     <button class="downvote" onclick="getCardQuality(event)"></button>
     <p class="quality">importance: <span class="quality-variable js-quality">${cardInfo.importance}</span></p>
-    <button class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Completed Task</button>
-    <hr>
+    <a class="complete-button js-complete-button" aria-label="Mark task complete" onclick="toggleComplete(event)">Complete</a>
   </article>`
 
   $('.js-bottom-box').prepend(listCard);
 
   if ($('article').length > 10) {
-    $('article').slice(11).hide();
+    $('article').slice(10).hide();
     $('.js-show-more').prop('disabled', '');
   };
 
@@ -329,7 +328,17 @@ function toggleComplete(event) {
   var task = $(event.target).parent();
   var taskID = task.prop('dataset').id
   task.toggleClass('complete');
+  changeCompleteText(event, task);
   setComplete(event, task, taskID, currentCollection)
+};
+
+function changeCompleteText(event, task) {
+    // debugger;
+  if (task.hasClass('complete')) {
+    $(event.target).text('Completed');
+  } else {
+    $(event.target).text('Complete');
+  };
 };
 
 function setComplete(event, task, taskID, currentCollection) {
@@ -389,7 +398,7 @@ function disableCompleteTaskBtn() {
 // ============================================================================
 
 function showMore() {
-  $('article').slice(11).show();
+  $('article').slice(10).show();
   $('.js-show-more').prop('disabled', true);
 };
 
