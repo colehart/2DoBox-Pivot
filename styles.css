@@ -1,42 +1,3 @@
-/* Idiomatic Styling Guide */
-/* element / selector {
-     any child-specific properties:
-        grid-column;
-        grid-row;
-        grid-area;
-     any overriding properties;
-        justify-self;
-        align-self;
-     box-size-properties:
-       height;
-       width;
-       border;
-       margin;
-       padding;
-     position:
-       top,
-       left,
-       bottom,
-       right;
-       position-specific properties;
-     display;
-     relevant-display-properties:;
-       if grid- or flex-container, any parent properties:
-         grid-template-columns;
-         grid-template-rows;
-         grid-gap;
-         grid-areas;
-        or
-         flex-direction;
-         flex-wrap;
-         justify-content / items;
-         align-content / items;
-     box-background-styling (abc order)
-       background color/image;
-       blend modes;
-     text properties (abc order);
-   }*/
-
 body {
   box-sizing: border-box;
 }
@@ -49,11 +10,44 @@ body {
 
 /* Styling for header section where user creates task */
 
+input {
+  box-sizing: border-box;
+  margin: auto;
+  width: 45%;
+  padding-left: 0.5rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+span {
+  color: #6d6e71;
+}
+
+.body-input {
+  height: 30px;
+  position: relative;
+  bottom: 7px;
+}
+
 .create-card {
+  height: 160px;
   display: flex;
   flex-direction: column;
-  height: 160px;
   justify-content: space-around;
+  align-items: center;
+}
+
+.logo {
+  display: inline-block;
+  color: #4d4dff;
+}
+
+.save-btn {
+  background-color: #4d4dff;
+  color: #fff;
+}
+
+.title-input {
+  height: 30px;
 }
 
 .top-box {
@@ -63,82 +57,7 @@ body {
   text-align: center;
 }
 
-.logo {
-  display: inline-block;
-  color: #4d4dff;
-}
-
-span {
-  color: #6d6e71;
-}
-
-.title-input {
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.body-input {
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  bottom: 7px;
-}
-
-input {
-  box-sizing: border-box;
-  margin: auto;
-  width: 45%;
-  padding-left: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.save-btn {
-  align-self: center;
-  background-color: #4d4dff;
-  color: #fff;
-}
-
-/* Styling for application section where tasks populate */
-
-.filter {
-  width: 100%;
-  margin: 30px 0;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filter-input {
-  height: 30px;
-  margin: 0;
-  border: 1px solid lightgray;
-}
-
-h3 {
-  color: #6d6e71;
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-}
-
-.filter-buttons {
-  width: 45%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-}
-
-.filter-btn {
-  width: 75px;
-}
+/* Styling for filter section where user searches through created tasks */
 
 button {
   height: 35px;
@@ -162,9 +81,47 @@ button:focus {
   outline: 0;
 }
 
+h3 {
+  color: #6d6e71;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 .active-filter {
   background-color: #4d4dff;
   color: #ffffff;
+}
+
+.filter {
+  width: 100%;
+  margin: 30px 0;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-btn {
+  width: 75px;
+}
+
+.filter-buttons {
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.filter-input {
+  height: 30px;
+  margin: 0;
+  border: 1px solid lightgray;
 }
 
 .show-complete {
@@ -175,51 +132,6 @@ button:focus {
 
 /* Styling for application section where tasks populate */
 
-.card-container {
-  width: 45%;
-  margin: 0 auto;
-  padding: 8px 5px;
-  border-bottom: 2px solid #d1d3d4;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.title-of-card {
-  color: #6D6E71;
-  font-family: 'Roboto Slab', serif;
-  font-size: 140%;
-}
-
-h2 {
-  color: #6d6e71;
-  font-family: 'Roboto Slab', serif;
-}
-
-p {
-  color: #939598;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 100%;
-}
-
-.importance-voting {
-  display: flex;
-  align-items: center;
-}
-
-.quality {
-  margin-left: 8px;
-}
-
 article button,
 article button:hover {
   height: 28px;
@@ -229,14 +141,72 @@ article button:hover {
   outline: none;
 }
 
-.upvote {
-  margin-right: 10px;
-  background-image: url(images/upvote.svg);
+p {
+  color: #939598;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+}
+
+.card-container {
+  width: 45%;
+  margin: 0 auto;
+  padding: 8px 5px;
+  border-bottom: 2px solid #d1d3d4;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.complete {
+  background-color: #ededed;
+  font-style: italic;
+}
+
+.complete a {
+  margin-right: 4px;
+  color: #EF4136;
+}
+
+.complete a:hover {
+  color: #EF4136;
+  text-decoration: underline;
+}
+
+.complete h2 {
+  margin-left: 4px;
+}
+
+.complete p {
+  margin-left: 4px;
+  text-decoration: line-through;
+}
+
+.complete-button {
+  padding-right: 0;
+  color: #6d6e71;
+  text-align: right;
+}
+
+.complete-button:hover {
+  color: #39B54A;
+}
+
+.delete-button {
+  background-image: url(images/delete.svg);
   background-size: cover;
 }
 
-.upvote:hover {
-  background-image: url(images/upvote-hover.svg);
+.delete-button:hover {
+  background-image: url(images/delete-hover.svg);
   background-size: cover;
 }
 
@@ -251,54 +221,13 @@ article button:hover {
   background-size: cover;
 }
 
-.delete-button {
-  background-image: url(images/delete.svg);
-  background-size: cover;
-}
-
-.delete-button:hover {
-  background-image: url(images/delete-hover.svg);
-  background-size: cover;
-}
-
-.complete {
-  background-color: #ededed;
-  font-style: italic;
-}
-
-.complete h2 {
-  margin-left: 4px;
-}
-
-.complete p {
-  margin-left: 4px;
-  text-decoration: line-through;
-}
-
-.complete a {
-  margin-right: 4px;
-  color: #EF4136;
-}
-
-.complete a:hover {
-  color: #EF4136;
-  text-decoration: underline;
-
-}
-
-.complete-button {
-  padding-right: 0;
-  color: #6d6e71;
-  text-align: right;
-}
-
-.complete-button:hover {
-  color: #39B54A;
-}
-
-main {
+.importance-voting {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
+
+.quality {
+  margin-left: 8px;
 }
 
 .show-more {
@@ -307,10 +236,31 @@ main {
   width: 45%;
 }
 
+.title-of-card {
+  color: #6D6E71;
+  font-family: 'Roboto Slab', serif;
+  font-size: 140%;
+}
+
+.upvote {
+  margin-right: 10px;
+  background-image: url(images/upvote.svg);
+  background-size: cover;
+}
+
+.upvote:hover {
+  background-image: url(images/upvote-hover.svg);
+  background-size: cover;
+}
+
 @media screen and (max-width: 970px) {
 
   .filter {
     height: 350px;
+  }
+
+  .filter-btn {
+    margin: auto;
   }
 
   .filter-buttons {
@@ -319,17 +269,14 @@ main {
     justify-content: space-between;
   }
 
-  .filter-btn {
-     margin: auto;
-  }
-
 }
 
-@media(max-width: 640px){
+@media screen and (max-width: 640px){
 
   .card-container {
     width: 85%;
   }
+
 }
 
 @media screen and (max-width: 499px) {
@@ -337,6 +284,7 @@ main {
   .filter-buttons {
     height: 128px;
   }
+
 }
 
 @media screen and (max-width: 455px) {
@@ -344,5 +292,5 @@ main {
   .show-complete {
     height: 48px;
   }
-}
 
+}
