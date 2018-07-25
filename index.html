@@ -32,45 +32,44 @@
         </form>
       </header>
       <section class='filter' role='search'>
+        <input
+          aria-label="Filter through created tasks here"
+          class="filter-input js-filter-input"
+          type="text"
+          placeholder="Filter"
+          disabled>
         <h3>Filter by Task Importance</h3>
         <div class='filter-buttons'>
           <button
             aria-label="Show cards with no importance"
-            class="js-filter-btn"
+            class="filter-btn js-filter-btn"
             type="button"
             disabled>none</button>
           <button
             aria-label="Show cards with low importance"
-            class="js-filter-btn"
+            class="filter-btn js-filter-btn"
             type="button"
             disabled>low</button>
           <button
             aria-label="Show cards with normal importance"
-            class="js-filter-btn"
+            class="filter-btn js-filter-btn"
             type="button"
             disabled>normal</button>
           <button
             aria-label="Show cards with high importance"
-            class="js-filter-btn"
+            class="filter-btn js-filter-btn"
             type="button"
             disabled>high</button>
           <button
             aria-label="Show cards with critical importance"
-            class="js-filter-btn"
+            class="filter-btn js-filter-btn"
             type="button"
             disabled>critical</button>
         </div>
-        <form class="filter">
-          <input
-            aria-label="Filter through created tasks here"
-            class="filter-input js-filter-input"
-            type="text"
-            placeholder="Filter"
-            disabled>
-          <button 
-            class="show-complete js-show-complete"
-            aria-label="Click to show completed tasks" disabled>Show Completed TODOs</button>
-        </form>
+        <button
+          class="show-complete js-show-complete"
+          aria-label="Click to show completed tasks"
+          disabled>Show Completed TODOs</button>
       </section>
       <section role="application" class="bottom-box js-bottom-box">
         <!-- js prepends new cards here -->
