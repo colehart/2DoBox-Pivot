@@ -53,7 +53,7 @@ span {
 
 .top-box {
   background-color: #def2ff;
-  height: 300px;
+  height: 282px;
   margin: 0;
   text-align: center;
 }
@@ -99,7 +99,7 @@ main {
   flex-direction: column;
   height: 200px;
   justify-content: space-between;
-  margin: 30px 0;
+  margin: 15px 0;
   width: 100%;
 }
 
@@ -257,10 +257,10 @@ p {
   background-size: cover;
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 888px) {
 
   .filter {
-    height: 350px;
+    height: 298px;
   }
 
   .filter-btn {
@@ -294,6 +294,10 @@ p {
 @media screen and (max-width: 455px) {
 
   .show-complete {
+    height: 48px;
+  }
+
+  .show-more {
     height: 48px;
   }
 
