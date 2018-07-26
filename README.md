@@ -4,4 +4,4 @@
 
 Assignment specs can be found [here](http://frontend.turing.io/projects/2DoBox-Pivot-Mod1.html).
 
-![Alt text](http://frontend.turing.io/assets/images/projects/ideabox/ideabox-01.png "Screenshot")
+![Alt text](images/2DoScreenshot "Screenshot")
