@@ -109,9 +109,9 @@ function enableSave() {
 };
 
 function saveInputValues(event) {
+  event.preventDefault();
   var titleValue = $('.js-title-input').val().trim();
   var bodyValue = $('.js-body-input').val().trim();
-  event.preventDefault();
   newCard(titleValue, bodyValue);
 };
 
@@ -376,8 +376,8 @@ function storeIncomplete(taskId, currentCollection) {
 // ============================================================================
 
 function showComplete(event) {
-  var currentCollection = parseLocalStorage();
   event.preventDefault();
+  var currentCollection = parseLocalStorage();
   prependComplete(currentCollection);
   disableCompleteTaskBtn();
 };
