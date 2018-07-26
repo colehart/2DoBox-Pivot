@@ -261,18 +261,19 @@ function enableFilter() {
 function filterCards() {
   var cards = $('article');
   cards.filter(function(index) {
+    var thisCard = $(this);
     var terms = $('.js-filter-input').val().toLowerCase();
-    var title = $(this).find('.js-title').text().toLowerCase();
-    var body = $(this).children('.js-body').text().toLowerCase();
-    checkContents(title, body, terms);
+    var title = thisCard.find('.js-title').text().toLowerCase();
+    var body = thisCard.children('.js-body').text().toLowerCase();
+    checkContents(thisCard, title, body, terms);
   });
 };
 
-function checkContents(title, body, terms) {
+function checkContents(thisCard, title, body, terms) {
   if (title.includes(terms) || body.includes(terms)) {
-    $(this).show();
+    thisCard.show();
   } else {
-    $(this).hide();
+    thisCard.hide();
   };
 };
 
