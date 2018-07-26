@@ -40,6 +40,8 @@ span {
 .logo {
   color: #0068ad;
   display: inline-block;
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .save-btn {
@@ -54,7 +56,7 @@ span {
 .top-box {
   background-color: #def2ff;
   height: 282px;
-  margin: 0;
+  padding: 2rem 0 0;
   text-align: center;
 }
 
@@ -86,6 +88,7 @@ button:focus {
 main {
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
 }
 
 .active-filter {
@@ -295,6 +298,41 @@ p {
 
   .show-complete {
     height: 48px;
+  }
+
+  .show-more {
+    height: 48px;
+  }
+
+}
+
+@media screen and (max-width: 355px) {
+
+  body {
+    overflow: scroll;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-between;
+  }
+
+  .filter-btn {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    display: flex;
+    flex-direction: column;
+    height: 240px;
+    justify-content: space-between;
+  }
+
+  .show-complete {
+    height: 48px;
+    margin-top: 0;
   }
 
   .show-more {
